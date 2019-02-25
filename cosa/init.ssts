@@ -1,0 +1,48 @@
+INPUT
+
+OUTPUT
+
+STATE
+state_counter : BV(5) ;
+
+INIT
+state_counter = 0_5 ;
+'pipe.aregfile.regfile.mem[0]' = 0_32 ;
+'pipe.aregfile.regfile.mem[1]' = 0_32 ;
+'pipe.aregfile.regfile.mem[2]' = 0_32 ;
+'pipe.aregfile.regfile.mem[3]' = 0_32 ;
+'pipe.aregfile.regfile.mem[4]' = 0_32 ;
+'pipe.aregfile.regfile.mem[5]' = 0_32 ;
+'pipe.aregfile.regfile.mem[6]' = 0_32 ;
+'pipe.aregfile.regfile.mem[7]' = 0_32 ;
+'pipe.aregfile.regfile.mem[8]' = 0_32 ;
+'pipe.aregfile.regfile.mem[9]' = 0_32 ;
+'pipe.aregfile.regfile.mem[10]' = 0_32 ;
+'pipe.aregfile.regfile.mem[11]' = 0_32 ;
+'pipe.aregfile.regfile.mem[12]' = 0_32 ;
+'pipe.aregfile.regfile.mem[13]' = 0_32 ;
+'pipe.aregfile.regfile.mem[14]' = 0_32 ;
+'pipe.aregfile.regfile.mem[15]' = 0_32 ;
+'pipe.aregfile.regfile.mem[16]' = 0_32 ;
+'pipe.aregfile.regfile.mem[17]' = 0_32 ;
+'pipe.aregfile.regfile.mem[18]' = 0_32 ;
+'pipe.aregfile.regfile.mem[19]' = 0_32 ;
+'pipe.aregfile.regfile.mem[20]' = 0_32 ;
+'pipe.aregfile.regfile.mem[21]' = 0_32 ;
+'pipe.aregfile.regfile.mem[22]' = 0_32 ;
+'pipe.aregfile.regfile.mem[23]' = 0_32 ;
+'pipe.aregfile.regfile.mem[24]' = 0_32 ;
+'pipe.aregfile.regfile.mem[25]' = 0_32 ;
+'pipe.aregfile.regfile.mem[26]' = 0_32 ;
+'pipe.aregfile.regfile.mem[27]' = 0_32 ;
+'pipe.aregfile.regfile.mem[28]' = 0_32 ;
+'pipe.aregfile.regfile.mem[29]' = 0_32 ;
+'pipe.aregfile.regfile.mem[30]' = 0_32 ;
+'pipe.aregfile.regfile.mem[31]' = 0_32 ;
+
+INVAR
+# (state_counter = 3_5) -> (inst_constraint0.ADDI = 1_1) ;
+
+TRANS
+next(state_counter) = ((state_counter < 31_5) ? state_counter + 1_5 : 0_5) ;
+
