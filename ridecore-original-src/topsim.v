@@ -12,7 +12,7 @@ module top
    input                 clk,
    input                 reset_x,
    // EDIT: make instruction a top-level input
-   input [`INSN_LEN-1:0] instruction,
+   input [`INSN_LEN-1:0] instruction
    );
 
    //Active Low SW
