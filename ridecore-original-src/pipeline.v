@@ -6,14 +6,15 @@
 
 module pipeline
   (
-   input wire 			clk,
-   input wire 			reset,
-   output reg [`ADDR_LEN-1:0] 	pc,
+   input wire [`INSN_LEN-1:0]   inst1,
+   input wire                   clk,
+   input wire                   reset,
+   output reg [`ADDR_LEN-1:0]   pc,
    input wire [4*`INSN_LEN-1:0] idata,
-   output wire [`DATA_LEN-1:0] 	dmem_wdata,
-   output wire 			dmem_we,
-   output wire [`ADDR_LEN-1:0] 	dmem_addr,
-   input wire [`DATA_LEN-1:0] 	dmem_data
+   output wire [`DATA_LEN-1:0]  dmem_wdata,
+   output wire                  dmem_we,
+   output wire [`ADDR_LEN-1:0]  dmem_addr,
+   input wire [`DATA_LEN-1:0]   dmem_data
    );
    wire  stall_IF;
    wire  kill_IF;
@@ -27,7 +28,8 @@ module pipeline
    // Signal from pipe_if
    wire     	       prcond;
    wire [`ADDR_LEN-1:0] npc;
-   wire [`INSN_LEN-1:0] inst1;
+   // EDIT: make inst1 an input
+//   wire [`INSN_LEN-1:0] inst1;
    wire [`INSN_LEN-1:0] inst2;
    wire 		invalid2_pipe;
    wire [`GSH_BHR_LEN-1:0] bhr;
@@ -490,14 +492,17 @@ module pipeline
       end
    end
 
-   
+   // EDIT: manually cut inst1, want to drive this from the top-level
+   //       we don't need to include the instruction fetch
+   wire [`INSN_LEN-1:0] cut_inst1;
+
    pipeline_if pipe_if(
 		       .clk(clk),
 		       .reset(reset),
 		       .pc(pc),
 		       .predict_cond(prcond),
 		       .npc(npc),
-		       .inst1(inst1),
+		       .inst1(cut_inst1),
 		       .inst2(inst2),
 		       .invalid2(invalid2_pipe),
 		       .btbpht_we(combranch),
@@ -530,9 +535,13 @@ module pipeline
 	 npc_if <= npc;
 	 pc_if <= pc;
 	 inst1_if <= inst1;
-	 inst2_if <= inst2;
+   // disable second instruction
+//	 inst2_if <= inst2;
+   inst2_if <= 32'd0;
 	 inv1_if <= 0;
-	 inv2_if <= invalid2_pipe;
+   // disable second instruction
+	 // inv2_if <= invalid2_pipe;
+   inv2_if <= 1'b1;
 	 bhr_if <= bhr;
 	 
       end

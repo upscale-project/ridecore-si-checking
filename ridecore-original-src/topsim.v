@@ -9,24 +9,35 @@ module top
 //   output 	    TXD,
 //   input 	    RXD,
 //   output reg [7:0] LED
-   input clk,
-   input reset_x
+   input                 clk,
+   input                 reset_x,
+   // EDIT: make instruction a top-level input
+   input [`INSN_LEN-1:0] instruction,
    );
 
    //Active Low SW
 //   wire 	    clk;
 //   wire 	    reset_x;
 
-
+   (* keep *)
    wire [`ADDR_LEN-1:0] pc;
+   (* keep *)
    wire [4*`INSN_LEN-1:0] idata;
+   (* keep *)
    wire [8:0] 		  imem_addr;
+   (* keep *)
    wire [`DATA_LEN-1:0]   dmem_data;
+   (* keep *)
    wire [`DATA_LEN-1:0]   dmem_wdata;
+   (* keep *)
    wire [`ADDR_LEN-1:0]   dmem_addr;
+   (* keep *)
    wire 		  dmem_we;
+   (* keep *)
    wire [`DATA_LEN-1:0]   dmem_wdata_core;
+   (* keep *)
    wire [`ADDR_LEN-1:0]   dmem_addr_core;
+   (* keep *)
    wire 		  dmem_we_core;
 
    wire 		  utx_we;
@@ -39,6 +50,27 @@ module top
    wire [`ADDR_LEN-1:0]   prog_loadaddr = 0;
    wire 		  prog_dmem_we = 0;
    wire 		  prog_imem_we = 0;
+
+   // EDIT: Use the inst_constraint module to constrain instruction to be
+   //       a valid instruction from the ISA
+   (* keep *)
+   wire [6:0] opcode;
+   (* keep *)
+   wire [4:0] rd;
+   (* keep *)
+   wire [4:0] rs1;
+   (* keep *)
+   wire [4:0] rs2;
+   (* keep *)
+   wire [11:0] imm;
+   assign opcode = instruction[6:0];
+   assign rd = instruction[11:7];
+   assign rs1 = instruction[19:15];
+   assign rs2 = instruction[24:20];
+   assign imm = instruction[31:20];
+   inst_constraint inst_constraint0(.clk(clk),
+                                    .instruction(instruction));
+   // EDIT END
 /*   
    assign utx_we = (dmem_we_core && (dmem_addr_core == 32'h0)) ? 1'b1 : 1'b0;
    assign finish_we = (dmem_we_core && (dmem_addr_core == 32'h8)) ? 1'b1 : 1'b0;
@@ -70,8 +102,10 @@ module top
       .RST_X_O(reset_x)
       );
 */
+   // EDIT: wire up the instruction to the new inst1 port
    pipeline pipe
      (
+      .inst1(instruction),
       .clk(clk),
       .reset(~reset_x | prog_loading),
       .pc(pc),
