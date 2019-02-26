@@ -1,38 +1,45 @@
 # opcode = 7'b1111111 is a NOP
 I: reset_done = False
 I: reset_x = 0_1
-I: opcode = 127_7
+# I: opcode = 127_7
 
 S1: reset_done = False
 S1: reset_x = 0_1
-S1: opcode = 127_7
+# S1: opcode = 127_7
 
 S2: reset_done = False
 S2: reset_x = 0_1
-S2: opcode = 127_7
+# S2: opcode = 127_7
 
 S3: reset_done = False
 S3: reset_x = 0_1
-S3: opcode = 127_7
+# S3: opcode = 127_7
 
 S4: reset_done = False
 S4: reset_x = 0_1
-S4: opcode = 127_7
+# S4: opcode = 127_7
 
 S5: reset_done = False
 S5: reset_x = 0_1
-S5: opcode = 127_7
+# S5: opcode = 127_7
 
 S6: reset_done = False
 S6: reset_x = 0_1
-S6: opcode = 127_7
+# S6: opcode = 127_7
 
 S7: reset_done = True
 S7: reset_x = 1_1
-S7: opcode = 127_7
+S7: inst_constraint0.ADDI = 1_1
+S7: imm = 10_12
+S7: rd = 8_5
+S7: rs1 = 6_5
 
 S8: reset_done = True
 S8: reset_x = 1_1
+S8: inst_constraint0.ADDI = 1_1
+S8: imm = 10_12
+S8: rd = 8_5
+S8: rs1 = 6_5
 
 # TRANS
 I -> S1

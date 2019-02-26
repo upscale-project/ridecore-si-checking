@@ -1,19 +1,17 @@
 [GENERAL]
-model_file: ridecore.vlist[top],reset_procedure.ets,init.ssts
+model_file: ridecore.vlist[top],hold_addi.ets,init.ssts
 clock_behaviors: DetClock(clk, 1)
 vcd: True
 
 [DEFAULT]
-# bmc_length: 24
 solver_name: btor
-# no_arrays: True
 default_initial_value: 0
 
-[SIM_ADDI]
+[VER_CONCRETE_ADDI]
 description: "Simulate an ADDI"
 verification: safety
-formula: state_counter < 27_5
-bmc_length_min: 16
+formula: (state_counter = 22_5) -> (pipe.aregfile.regfile.mem[8_5] = 10_32)
+# bmc_length_min: 20
 bmc_length: 28
 assumptions: stable_inst.txt
 
