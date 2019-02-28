@@ -43,5 +43,5 @@ pipe.aregfile.regfile.mem[31_5] = 0_32 ;
 INVAR
 
 TRANS
-next(state_counter) = ((state_counter < 31_5) ? state_counter + 1_5 : 0_5) ;
+next(state_counter) = ((state_counter < 31_5) ? state_counter + 1_5 : 31_5) ;
 
