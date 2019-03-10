@@ -30,14 +30,14 @@ S6: reset_x = 0_1
 S7: reset_done = True
 S7: reset_x = 1_1
 S7: inst_constraint0.ADDI = 1_1
-S7: imm = 10_12
+S7: simm12 = 10_12
 S7: rd = 8_5
 S7: rs1 = 6_5
 
 S8: reset_done = True
 S8: reset_x = 1_1
 S8: inst_constraint0.ADDI = 1_1
-S8: imm = 10_12
+S8: simm12 = 10_12
 S8: rd = 8_5
 S8: rs1 = 6_5
 

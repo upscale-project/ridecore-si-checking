@@ -29,7 +29,7 @@ S6: opcode = 127_7
 
 S7: reset_done = True
 S7: reset_x = 1_1
-S7: opcode = 127_7
+
 
 S8: reset_done = True
 S8: reset_x = 1_1

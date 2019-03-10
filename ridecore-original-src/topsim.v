@@ -44,7 +44,7 @@ module top
    wire 		  finish_we;
    wire 		  ready_tx;
    wire 		  loaded;
-   
+
    reg 			  prog_loading;
    wire [4*`INSN_LEN-1:0] prog_loaddata = 0;
    wire [`ADDR_LEN-1:0]   prog_loadaddr = 0;
@@ -62,19 +62,44 @@ module top
    (* keep *)
    wire [4:0] rs2;
    (* keep *)
-   wire [11:0] imm;
+   wire [6:0] funct7;
+   (* keep *)
+   wire [2:0] funct3;
+   (* keep *)
+   wire [11:0] simm12;
+   (* keep *)
+   wire [31:0] imm;
+   (* keep *)
+   wire [31:0] val1;
+   (* keep *)
+   wire [31:0] val2;
+   (* keep *)
+   wire [6:0] simm7; // higher order bits (including sign bits) of imm operand for S type instruction
+   (* keep *)
+   wire [4:0] shamt; // shift amount for immediate shift operations
+   (* keep *)
+   wire [31:0] shimm;
+   (* keep *)
+   wire [31:0] shimm2;
+
    assign opcode = instruction[6:0];
    assign rd = instruction[11:7];
    assign rs1 = instruction[19:15];
    assign rs2 = instruction[24:20];
-   assign imm = instruction[31:20];
+   assign funct7 = instruction[31:25];
+   assign funct3 = instruction[14:12];
+   assign simm12 = instruction[31:20];
+   assign shamt = instruction[24:20];
+   assign imm = {{20{simm12[11]}}, simm12[11:0]};
+   assign shimm = {{27{0}}, shamt[4:0]};
+   assign shimm2 = {{27{0}}, val2[4:0]};
    inst_constraint inst_constraint0(.clk(clk),
                                     .instruction(instruction));
    // EDIT END
-/*   
+/*
    assign utx_we = (dmem_we_core && (dmem_addr_core == 32'h0)) ? 1'b1 : 1'b0;
    assign finish_we = (dmem_we_core && (dmem_addr_core == 32'h8)) ? 1'b1 : 1'b0;
-   
+
    always @ (posedge clk) begin
       if (!reset_x) begin
 	 LED <= 0;
@@ -92,13 +117,13 @@ module top
 	 prog_loading <= 0;
       end
    end
-/*   
+/*
    GEN_MMCM_DS genmmcmds
      (
-      .CLK_P(CLK_P), 
-      .CLK_N(CLK_N), 
-      .RST_X_I(~RST_X_IN), 
-      .CLK_O(clk), 
+      .CLK_P(CLK_P),
+      .CLK_N(CLK_N),
+      .RST_X_I(~RST_X_IN),
+      .CLK_O(clk),
       .RST_X_O(reset_x)
       );
 */
@@ -135,7 +160,7 @@ module top
 		      .wdata(prog_loaddata),
 		      .we(prog_imem_we)
 		      );
-/*   
+/*
    SingleUartTx sutx
      (
       .CLK(clk),
@@ -157,7 +182,5 @@ module top
       .WE_128(prog_imem_we),
       .DONE(loaded)
       );
-*/   
+*/
 endmodule // top
-
-   
