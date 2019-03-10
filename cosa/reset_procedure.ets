@@ -25,7 +25,9 @@ S5: opcode = 127_7
 
 S6: reset_done = False
 S6: reset_x = 0_1
-S6: opcode = 127_7
+# don't hold the opcode to NOP here because
+# instruction is assumed to be stable and
+# we want to start it at S7
 
 S7: reset_done = True
 S7: reset_x = 1_1
@@ -42,5 +44,4 @@ S3 -> S4
 S4 -> S5
 S5 -> S6
 S6 -> S7
-S7 -> S8
-S8 -> S8
+S7 -> S7
