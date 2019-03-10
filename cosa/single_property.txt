@@ -1,0 +1,40 @@
+[GENERAL]
+model_file: ridecore.vlist[top],reset_procedure.ets,init.ssts
+clock_behaviors: DetClock(clk, 1)
+vcd: True
+
+[DEFAULT]
+bmc_length: 25
+solver_name: btor
+precondition: reset_done
+no_arrays: False
+default_initial_value: 0
+prove: False
+
+[Single Instruction for SLL]
+description: "Check for Single Instruction"
+assumptions: single_assumption_sll.txt
+formula: ((state_counter = 22_10))-> (val1 << shimm2 = pipe.aregfile.regfile.mem[rd])
+verification: safety
+bmc_length_min: 20
+
+[Single Instruction for SRL]
+description: "Check for Single Instruction"
+assumptions: single_assumption_srl.txt
+formula: ((state_counter = 22_10))-> (val1 >> shimm2 = pipe.aregfile.regfile.mem[rd])
+verification: safety
+bmc_length_min: 20
+
+[Single Instruction for SRA]
+description: "Check for Single Instruction"
+assumptions: single_assumption_sra.txt
+formula: ((state_counter = 22_10))-> (val1 a>> shimm2 = pipe.aregfile.regfile.mem[rd])
+verification: safety
+bmc_length_min: 20
+
+[Single Instruction for SLTU]
+description: "Check for Single Instruction"
+assumptions: single_assumption_sltu.txt
+formula: ((state_counter = 22_10) & (val1 < val2))-> (pipe.aregfile.regfile.mem[rd] = 1_32)
+verification: safety
+bmc_length_min: 20

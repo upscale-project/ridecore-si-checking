@@ -1,0 +1,131 @@
+[GENERAL]
+model_file: ridecore.vlist[top],reset_procedure.ets,init.ssts
+clock_behaviors: DetClock(clk, 1)
+vcd: True
+
+[DEFAULT]
+bmc_length: 25
+solver_name: btor
+precondition: reset_done
+no_arrays: False
+default_initial_value: 0
+prove: False
+
+[Single Instruction for ADDI]
+description: "Check for Single Instruction"
+assumptions: single_assumption_addi.txt
+formula: (state_counter = 22_10)-> (val1 + imm = pipe.aregfile.regfile.mem[rd])
+verification: safety
+bmc_length_min: 20
+
+[Single Instruction for ANDI]
+description: "Check for Single Instruction"
+assumptions: single_assumption_andi.txt
+formula: (state_counter = 22_10)-> ((val1 & imm) = pipe.aregfile.regfile.mem[rd])
+verification: safety
+bmc_length_min: 20
+
+[Single Instruction For ORI]
+description: "Check for Single Instruction"
+assumptions: single_assumption_ori.txt
+formula: (state_counter = 22_10)-> ((val1 | imm) = pipe.aregfile.regfile.mem[rd])
+verification: safety
+bmc_length_min: 20
+
+[Single Instruction for XORI]
+description: "Check for Single Instruction"
+assumptions: single_assumption_xori.txt
+formula: (state_counter = 22_10)-> ((val1 xor imm) = pipe.aregfile.regfile.mem[rd])
+verification: safety
+bmc_length_min: 20
+
+[Single Instruction for SLLI]
+description: "Check for Single Instruction"
+assumptions: single_assumption_slli.txt
+formula: ((state_counter = 22_10))-> (val1 << shimm = pipe.aregfile.regfile.mem[rd])
+verification: safety
+bmc_length_min: 20
+
+[Single Instruction for SRLI]
+description: "Check for Single Instruction"
+assumptions: single_assumption_srli.txt
+formula: ((state_counter = 22_10))-> (val1 >> shimm = pipe.aregfile.regfile.mem[rd])
+verification: safety
+bmc_length_min: 20
+
+[Single Instruction for SRAI]
+description: "Check for Single Instruction"
+assumptions: single_assumption_srai.txt
+formula: ((state_counter = 22_10))-> (val1 a>> shimm = pipe.aregfile.regfile.mem[rd])
+verification: safety
+bmc_length_min: 20
+
+[Single Instruction for SLTIU]
+description: "Check for Single Instruction"
+assumptions: single_assumption_sltiu.txt
+formula: ((state_counter = 22_10) & (val1 < imm))-> (pipe.aregfile.regfile.mem[rd] = 1_32)
+verification: safety
+bmc_length_min: 20
+
+[Single Instruction for ADD]
+description: "Check for Single Instruction"
+assumptions: single_assumption_add.txt
+formula: (state_counter = 22_10)-> (val1 + val2 = pipe.aregfile.regfile.mem[rd])
+verification: safety
+bmc_length_min: 20
+
+[Single Instruction for SUB]
+description: "Check for Single Instruction"
+assumptions: single_assumption_sub.txt
+formula: (state_counter = 22_10)-> (val1 - val2 = pipe.aregfile.regfile.mem[rd])
+verification: safety
+bmc_length_min: 20
+
+[Single Instruction for AND]
+description: "Check for Single Instruction"
+assumptions: single_assumption_and.txt
+formula: (state_counter = 22_10)-> ((val1 & val2) = pipe.aregfile.regfile.mem[rd])
+verification: safety
+bmc_length_min: 20
+
+[Single Instruction For OR]
+description: "Check for Single Instruction"
+assumptions: single_assumption_or.txt
+formula: (state_counter = 22_10)-> ((val1 | val2) = pipe.aregfile.regfile.mem[rd])
+verification: safety
+bmc_length_min: 20
+
+[Single Instruction for XOR]
+description: "Check for Single Instruction"
+assumptions: single_assumption_xor.txt
+formula: (state_counter = 22_10)-> ((val1 xor val2) = pipe.aregfile.regfile.mem[rd])
+verification: safety
+bmc_length_min: 20
+
+[Single Instruction for SLL]
+description: "Check for Single Instruction"
+assumptions: single_assumption_sll.txt
+formula: ((state_counter = 22_10))-> (val1 << shimm2 = pipe.aregfile.regfile.mem[rd])
+verification: safety
+bmc_length_min: 20
+
+[Single Instruction for SRL]
+description: "Check for Single Instruction"
+assumptions: single_assumption_srl.txt
+formula: ((state_counter = 22_10))-> (val1 >> shimm2 = pipe.aregfile.regfile.mem[rd])
+verification: safety
+bmc_length_min: 20
+
+[Single Instruction for SRA]
+description: "Check for Single Instruction"
+assumptions: single_assumption_sra.txt
+formula: ((state_counter = 22_10))-> (val1 a>> shimm2 = pipe.aregfile.regfile.mem[rd])
+verification: safety
+bmc_length_min: 20
+
+[Single Instruction for SLTU]
+description: "Check for Single Instruction"
+assumptions: single_assumption_sltu.txt
+formula: ((state_counter = 22_10) & (val1 < val2))-> (pipe.aregfile.regfile.mem[rd] = 1_32)
+verification: safety
+bmc_length_min: 20

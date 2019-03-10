@@ -1,0 +1,14 @@
+INPUT
+
+OUTPUT
+
+STATE
+state_counter: BV(10) ;
+
+INIT
+state_counter = 0_10 ;
+
+INVAR
+
+TRANS
+next(state_counter) = state_counter + 1_10;
