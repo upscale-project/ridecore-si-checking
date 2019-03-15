@@ -32,6 +32,7 @@ function cleanup
   # function parameter indicates whether to reset
   if (($1))
   then
+      echo "  cleanup: resetting any local changes"
       git reset --hard
   fi
 }
