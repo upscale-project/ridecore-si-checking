@@ -29,10 +29,14 @@ function cleanup
   rm -f $TMPFILEBMCSETUP
   rm -f $TMPFILEBMCTEST
   rm -f $TMPFILECOSALOG
-  git reset --hard
+  # function parameter indicates whether to reset
+  if (($1))
+  then
+      git reset --hard
+  fi
 }
 
-trap 'cleanup; exit 1' SIGHUP SIGINT SIGTERM
+trap 'cleanup "1"; exit 1' SIGHUP SIGINT SIGTERM
 
 # Check if local git repository has uncommited changes. If so, then we
 # will abort to avoid losing uncommitted changes due to calls of 'git
@@ -43,7 +47,7 @@ if (($LOCALCHANGES))
 then
     echo "ERROR: repository has uncommitted changes! All changes should be"
     echo "       committed before running these script, will abort now."
-    cleanup;
+    cleanup "0";
     exit 1
 fi
 
@@ -107,7 +111,7 @@ do
         then
             echo "  Test for $OP using $BUGINJECTIONPATCHFILE failed, CoSA proved the property unexpectedly."
             echo "  Will abort now."
-            cleanup;
+            cleanup "1";
             exit 1
         else
             echo "  Test for $OP using $BUGINJECTIONPATCHFILE succeeded, CoSA found a counterexample as expected."
@@ -116,6 +120,6 @@ do
     echo ""
 done
 
-cleanup;
+cleanup "1";
 
 exit 0
