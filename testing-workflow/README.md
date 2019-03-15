@@ -25,8 +25,7 @@ to properly remove them in the end.
 
 Example call from the base directory of repository:
 
-`./testing-workflow/run-si-tests.sh ./cosa/single.txt
-./testing-workflow/bug-injection-patches/ ./ridecore-original-src/`
+`./testing-workflow/run-si-tests.sh ./cosa/single.txt ./testing-workflow/bug-injection-patches/ ./ridecore-original-src/`
 
 **Important Note:** the script `run-si-tests.sh` should only be run if
 there are no uncommitted changes in the current repository. The
