@@ -47,13 +47,15 @@ then
     exit 1
 fi
 
-# Extract default BMC setup, which will appear in every file
+# Extract default BMC setup, which will appear in every temporary
+# problem file we set up for a CoSA run
+# NOTE: extraction depends on the format of file "../cosa/single.txt"
 grep -A 3 "\[GENERAL\]" $INPUTFILE > $TMPFILEBMCSETUP
 echo "" >> $TMPFILEBMCSETUP
 grep -A 6 "\[DEFAULT\]" $INPUTFILE >> $TMPFILEBMCSETUP
 echo "" >> $TMPFILEBMCSETUP
 
-# Extract names of operators from INPUTFILE
+# Extract the names of operators from INPUTFILE
 declare -a OPNAMES=(`grep "\[Single Instruction [fF]or" $INPUTFILE | awk '{print $4}' | awk -F] '{print $1}'`);
 
 # Extract BMC tests listed in INPUTFILE for each operator
@@ -62,37 +64,39 @@ do
     # Copy basic setup to new problem file
     cat $TMPFILEBMCSETUP > $TMPFILEBMCTEST
 
-    echo "op name: $OP"
+    echo "Operator name: $OP"
 
     # Copy actual test to problem file
     grep -A 5 "\[Single Instruction [[:alnum:]]* $OP\]" $INPUTFILE >> $TMPFILEBMCTEST
 
-    # Find patch files related to operator OP, assuming its name
-    # contains $OP (i.e., the current operator name)
+    # Find patch files related to operator OP, assuming its file name
+    # contains the strin "$OP" (i.e., the current operator name)
     BUGINJECTIONPATCHFILES=`find $PATCHDIR -iname "$OP"`
 
     declare -a BUGINJECTIONPATCHFILES=(`find $PATCHDIR -iname "*$OP.patch"`);
 
     if (( ${#BUGINJECTIONPATCHFILES[@]} == 0 ))
     then
-        echo "No bug injection patches found for instruction $OP, skipping tests."
+        echo "  No bug injection patches found for instruction $OP, skipping tests."
         continue
     fi
 
-    # Loop over all bug injection files found for current operator
+    # Loop over all bug injection files found for current operator and
+    # call CoSA on the Verilog sources of Ridecore modified by bug
+    # injections.
     for BUGINJECTIONPATCHFILE in "${BUGINJECTIONPATCHFILES[@]}";
     do
-        echo "  bug injection patch file for instruction $OP: " $BUGINJECTIONPATCHFILE
+        echo "  Bug injection patch file for instruction $OP: " $BUGINJECTIONPATCHFILE
         ORIGFILENAME=`head -n 1 $BUGINJECTIONPATCHFILE | awk '{print $2}' | xargs -iFILE basename FILE`
-        echo "Original filename $ORIGFILENAME"
+        echo "  Original Verilog file name: $ORIGFILENAME"
 
         # Reset changes from bug inserted in previous iteration of loop.
         git reset --hard
         
-        echo "Patching original file $ORIGFILENAME"
+        echo "  Patching original file $ORIGFILENAME"
         patch -i $BUGINJECTIONPATCHFILE $VERILOGSRC/$ORIGFILENAME
 
-        echo "Running CoSA --problems $TMPFILEBMCTEST"
+        echo "  Running CoSA --problems $TMPFILEBMCTEST"
         
         CoSA --problems $TMPFILEBMCTEST 2>&1 | tee $TMPFILECOSALOG
 
@@ -101,14 +105,15 @@ do
 
         if (($RESEXPECTED))
         then
-            echo "Test for $OP using $BUGINJECTIONPATCHFILE failed, CoSA proved the property unexpectedly."
-            echo "Will abort now."
+            echo "  Test for $OP using $BUGINJECTIONPATCHFILE failed, CoSA proved the property unexpectedly."
+            echo "  Will abort now."
             cleanup;
             exit 1
         else
-            echo "Test for $OP using $BUGINJECTIONPATCHFILE succeeded, CoSA found a counterexample."
+            echo "  Test for $OP using $BUGINJECTIONPATCHFILE succeeded, CoSA found a counterexample as expected."
         fi
     done
+    echo ""
 done
 
 cleanup;
