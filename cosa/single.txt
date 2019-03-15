@@ -1,5 +1,3 @@
-
-
 [GENERAL]
 model_file: ridecore.vlist[top],reset_procedure.ets,init.ssts
 clock_behaviors: DetClock(clk, 1)
