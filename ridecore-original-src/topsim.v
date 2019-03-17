@@ -81,6 +81,22 @@ module top
    wire [31:0] shimm;
    (* keep *)
    wire [31:0] shimm2;
+   (* keep *)
+   wire [11:0] addr;
+   (* keep *)
+   wire [31:0] imm_s;
+   (* keep *)
+   wire [31:0] imm_c;
+   (* keep *)
+   wire [31:0] addr_sw;
+   (* keep *)
+   wire [11:0] imm_new;
+   (* keep *)
+   wire signed [63:0] val1_mul;
+   (* keep *)
+   wire signed [63:0] val2_mul;
+   (* keep *)
+   wire [63:0] val_mul;
 
    assign opcode = instruction[6:0];
    assign rd = instruction[11:7];
@@ -91,8 +107,14 @@ module top
    assign simm12 = instruction[31:20];
    assign shamt = instruction[24:20];
    assign imm = {{20{simm12[11]}}, simm12[11:0]};
+   assign imm_s = {{20{0}}, imm_c[11:0]};
+   assign imm_new = {funct7[6:0], rd[4:0]};
    assign shimm = {{27{0}}, shamt[4:0]};
    assign shimm2 = {{27{0}}, val2[4:0]};
+   //assign addr = val1+imm_s;
+   assign addr_sw = val2+imm_new;
+   assign val1_mul = {{32{0}}, val1[31:0]};
+   assign val2_mul = {{32{0}}, val2[31:0]};
    inst_constraint inst_constraint0(.clk(clk),
                                     .instruction(instruction));
    // EDIT END

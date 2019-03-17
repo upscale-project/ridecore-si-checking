@@ -1,5 +1,5 @@
 [GENERAL]
-model_file: ridecore.vlist[top],reset_procedure.ets,init.ssts
+model_file: ridecore.vlist[top],reset_procedure.ets,init.ssts,state_copy.ssts,nop_m.ssts
 clock_behaviors: DetClock(clk, 1)
 vcd: True
 
@@ -13,119 +13,133 @@ prove: False
 
 [Single Instruction for ADDI]
 description: "Check for Single Instruction"
-assumptions: single_assumption_addi.txt
-formula: (state_counter = 22_10)-> (val1 + imm = pipe.aregfile.regfile.mem[rd])
+assumptions: (state_counter = 7_10) -> ((opcode = 19_7) & (funct3 = 0_3)& (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]));
+formula: (state_counter = 22_10)-> (val1 + imm_copy = pipe.aregfile.regfile.mem[rd_copy])
 verification: safety
 bmc_length_min: 20
 
 [Single Instruction for ANDI]
 description: "Check for Single Instruction"
-assumptions: single_assumption_andi.txt
-formula: (state_counter = 22_10)-> ((val1 & imm) = pipe.aregfile.regfile.mem[rd])
+assumptions: (state_counter = 7_10) -> ((opcode = 19_7) & (funct3 = 7_3)& (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]));
+formula: (state_counter = 22_10)-> ((val1 & imm_copy) = pipe.aregfile.regfile.mem[rd_copy])
 verification: safety
 bmc_length_min: 20
 
 [Single Instruction For ORI]
 description: "Check for Single Instruction"
-assumptions: single_assumption_ori.txt
-formula: (state_counter = 22_10)-> ((val1 | imm) = pipe.aregfile.regfile.mem[rd])
+assumptions: (state_counter = 7_10) -> ((opcode = 19_7) & (funct3 = 6_3)& (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]));
+formula: (state_counter = 22_10)-> ((val1 | imm_copy) = pipe.aregfile.regfile.mem[rd_copy])
 verification: safety
 bmc_length_min: 20
 
 [Single Instruction for XORI]
 description: "Check for Single Instruction"
-assumptions: single_assumption_xori.txt
-formula: (state_counter = 22_10)-> ((val1 xor imm) = pipe.aregfile.regfile.mem[rd])
+assumptions: (state_counter = 7_10) -> ((opcode = 19_7) & (funct3 = 4_3)& (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]));
+formula: (state_counter = 22_10)-> ((val1 xor imm_copy) = pipe.aregfile.regfile.mem[rd_copy])
 verification: safety
 bmc_length_min: 20
 
 [Single Instruction for SLLI]
 description: "Check for Single Instruction"
-assumptions: single_assumption_slli.txt
-formula: ((state_counter = 22_10))-> (val1 << shimm = pipe.aregfile.regfile.mem[rd])
+assumptions: (state_counter = 7_10) -> ((opcode = 19_7) & (funct3 = 1_3)&(funct7 = 0_7)&(rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]));
+formula: ((state_counter = 22_10))-> (val1 << shimm_copy = pipe.aregfile.regfile.mem[rd_copy])
 verification: safety
 bmc_length_min: 20
 
 [Single Instruction for SRLI]
 description: "Check for Single Instruction"
-assumptions: single_assumption_srli.txt
-formula: ((state_counter = 22_10))-> (val1 >> shimm = pipe.aregfile.regfile.mem[rd])
+assumptions: (state_counter = 7_10) -> ((opcode = 19_7) & (funct3 = 5_3)& (funct7 = 0_7)& (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]));
+formula: ((state_counter = 22_10))-> (val1 >> shimm_copy = pipe.aregfile.regfile.mem[rd_copy])
 verification: safety
 bmc_length_min: 20
 
 [Single Instruction for SRAI]
 description: "Check for Single Instruction"
-assumptions: single_assumption_srai.txt
-formula: ((state_counter = 22_10))-> (val1 a>> shimm = pipe.aregfile.regfile.mem[rd])
+assumptions: (state_counter = 7_10) -> ((opcode = 19_7) & (funct3 = 5_3)&(funct7 = 32_7)& (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]));
+formula: ((state_counter = 22_10))-> (val1 a>> shimm_copy = pipe.aregfile.regfile.mem[rd_copy])
 verification: safety
 bmc_length_min: 20
 
 [Single Instruction for SLTIU]
 description: "Check for Single Instruction"
-assumptions: single_assumption_sltiu.txt
-formula: ((state_counter = 22_10) & (val1 < imm))-> (pipe.aregfile.regfile.mem[rd] = 1_32)
+assumptions: (state_counter = 7_10) -> ((opcode = 19_7) & (funct3 = 3_3)& (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]));
+formula: ((state_counter = 22_10) & (val1 < imm_copy))-> (pipe.aregfile.regfile.mem[rd_copy] = 1_32)
+verification: safety
+bmc_length_min: 20
+
+[Single Instruction for SLTI]
+description: "Check for Single Instruction"
+assumptions: (state_counter = 7_10) -> ((opcode = 19_7) & (funct3 = 2_3)& (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]));
+formula: ((state_counter = 22_10) & (val1 s< imm_copy))-> (pipe.aregfile.regfile.mem[rd_copy] = 1_32)
 verification: safety
 bmc_length_min: 20
 
 [Single Instruction for ADD]
 description: "Check for Single Instruction"
-assumptions: single_assumption_add.txt
-formula: (state_counter = 22_10)-> (val1 + val2 = pipe.aregfile.regfile.mem[rd])
+assumptions: (state_counter = 7_10) -> ((opcode = 51_7) & (funct3 = 0_3)& (funct7 = 0_7) & (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]) & (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
+formula: (state_counter = 22_10)-> (val1 + val2 = pipe.aregfile.regfile.mem[rd_copy])
 verification: safety
 bmc_length_min: 20
 
 [Single Instruction for SUB]
 description: "Check for Single Instruction"
-assumptions: single_assumption_sub.txt
-formula: (state_counter = 22_10)-> (val1 - val2 = pipe.aregfile.regfile.mem[rd])
+assumptions: (state_counter = 7_10) -> ((opcode = 51_7) & (funct3 = 0_3)& (funct7 = 32_7) & (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]) & (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
+formula: (state_counter = 22_10)-> (val1 - val2 = pipe.aregfile.regfile.mem[rd_copy])
 verification: safety
 bmc_length_min: 20
 
 [Single Instruction for AND]
 description: "Check for Single Instruction"
-assumptions: single_assumption_and.txt
-formula: (state_counter = 22_10)-> ((val1 & val2) = pipe.aregfile.regfile.mem[rd])
+assumptions: (state_counter = 7_10) -> ((opcode = 51_7) & (funct3 = 7_3)& (funct7 = 0_7) & (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]) & (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
+formula: (state_counter = 22_10)-> ((val1 & val2) = pipe.aregfile.regfile.mem[rd_copy])
 verification: safety
 bmc_length_min: 20
 
 [Single Instruction For OR]
 description: "Check for Single Instruction"
-assumptions: single_assumption_or.txt
-formula: (state_counter = 22_10)-> ((val1 | val2) = pipe.aregfile.regfile.mem[rd])
+assumptions: (state_counter = 7_10) -> ((opcode = 51_7) & (funct3 = 6_3)& (funct7 = 0_7) & (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]) & (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
+formula: (state_counter = 22_10)-> ((val1 | val2) = pipe.aregfile.regfile.mem[rd_copy])
 verification: safety
 bmc_length_min: 20
 
 [Single Instruction for XOR]
 description: "Check for Single Instruction"
-assumptions: single_assumption_xor.txt
-formula: (state_counter = 22_10)-> ((val1 xor val2) = pipe.aregfile.regfile.mem[rd])
+assumptions: (state_counter = 7_10) -> ((opcode = 51_7) & (funct3 = 4_3)& (funct7 = 0_7) & (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]) & (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
+formula: (state_counter = 22_10)-> ((val1 xor val2) = pipe.aregfile.regfile.mem[rd_copy])
 verification: safety
 bmc_length_min: 20
 
 [Single Instruction for SLL]
 description: "Check for Single Instruction"
-assumptions: single_assumption_sll.txt
-formula: ((state_counter = 22_10))-> (val1 << shimm2 = pipe.aregfile.regfile.mem[rd])
+assumptions: (state_counter = 7_10) -> ((opcode = 51_7) & (funct3 = 1_3)& (funct7 = 0_7) & (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]) & (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
+formula: ((state_counter = 22_10))-> (val1 << shimm2_copy = pipe.aregfile.regfile.mem[rd_copy])
 verification: safety
 bmc_length_min: 20
 
 [Single Instruction for SRL]
 description: "Check for Single Instruction"
-assumptions: single_assumption_srl.txt
-formula: ((state_counter = 22_10))-> (val1 >> shimm2 = pipe.aregfile.regfile.mem[rd])
+assumptions: (state_counter = 7_10) -> ((opcode = 51_7) & (funct3 = 5_3)& (funct7 = 0_7) & (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]) & (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
+formula: ((state_counter = 22_10))-> (val1 >> shimm2_copy = pipe.aregfile.regfile.mem[rd_copy])
 verification: safety
 bmc_length_min: 20
 
 [Single Instruction for SRA]
 description: "Check for Single Instruction"
-assumptions: single_assumption_sra.txt
-formula: ((state_counter = 22_10))-> (val1 a>> shimm2 = pipe.aregfile.regfile.mem[rd])
+assumptions: (state_counter = 7_10) -> ((opcode = 51_7) & (funct3 = 5_3)& (funct7 = 32_7) & (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]) & (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
+formula: ((state_counter = 22_10))-> (val1 a>> shimm2_copy = pipe.aregfile.regfile.mem[rd_copy])
 verification: safety
 bmc_length_min: 20
 
 [Single Instruction for SLTU]
 description: "Check for Single Instruction"
-assumptions: single_assumption_sltu.txt
-formula: ((state_counter = 22_10) & (val1 < val2))-> (pipe.aregfile.regfile.mem[rd] = 1_32)
+assumptions: (state_counter = 7_10) -> ((opcode = 51_7) & (funct3 = 3_3)& (funct7 = 0_7) & (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]) & (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
+formula: ((state_counter = 22_10) & (val1 < val2))-> (pipe.aregfile.regfile.mem[rd_copy] = 1_32)
+verification: safety
+bmc_length_min: 20
+
+[Single Instruction for SLT]
+description: "Check for Single Instruction"
+assumptions: (state_counter = 7_10) -> ((opcode = 51_7) & (funct3 = 2_3)& (funct7 = 0_7) & (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]) & (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
+formula: ((state_counter = 22_10) & (val1 s< val2))-> (pipe.aregfile.regfile.mem[rd_copy] = 1_32)
 verification: safety
 bmc_length_min: 20

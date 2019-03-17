@@ -1,40 +1,19 @@
 [GENERAL]
-model_file: ridecore.vlist[top],reset_procedure.ets,init.ssts
+model_file: ridecore.vlist[top],reset_procedure.ets,init.ssts,state_copy.ssts,nop_m.ssts
 clock_behaviors: DetClock(clk, 1)
 vcd: True
 
 [DEFAULT]
-bmc_length: 25
+bmc_length: 27
 solver_name: btor
 precondition: reset_done
 no_arrays: False
 default_initial_value: 0
 prove: False
 
-[Single Instruction for SLL]
+[Single Instruction for LW]
 description: "Check for Single Instruction"
-assumptions: single_assumption_sll.txt
-formula: ((state_counter = 22_10))-> (val1 << shimm2 = pipe.aregfile.regfile.mem[rd])
-verification: safety
-bmc_length_min: 20
-
-[Single Instruction for SRL]
-description: "Check for Single Instruction"
-assumptions: single_assumption_srl.txt
-formula: ((state_counter = 22_10))-> (val1 >> shimm2 = pipe.aregfile.regfile.mem[rd])
-verification: safety
-bmc_length_min: 20
-
-[Single Instruction for SRA]
-description: "Check for Single Instruction"
-assumptions: single_assumption_sra.txt
-formula: ((state_counter = 22_10))-> (val1 a>> shimm2 = pipe.aregfile.regfile.mem[rd])
-verification: safety
-bmc_length_min: 20
-
-[Single Instruction for SLTU]
-description: "Check for Single Instruction"
-assumptions: single_assumption_sltu.txt
-formula: ((state_counter = 22_10) & (val1 < val2))-> (pipe.aregfile.regfile.mem[rd] = 1_32)
+assumptions: (state_counter = 7_10) -> ((opcode = 3_7) & (funct3 = 2_3) & (rd != 0_5)& (rs1 != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]));
+formula: (state_counter = 22_10)-> (datamemory.mem[addr[0:6]] = pipe.aregfile.regfile.mem[rd_copy])
 verification: safety
 bmc_length_min: 20

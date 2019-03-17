@@ -2,7 +2,7 @@
 `include "rv32_opcodes.vh"
 
 `default_nettype none
-  
+
 module alu(
            input wire [`ALU_OP_WIDTH-1:0] op,
            input wire [`XPR_LEN-1:0] 	  in1,
