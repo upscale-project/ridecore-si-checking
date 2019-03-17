@@ -92,7 +92,7 @@ do
     for BUGINJECTIONPATCHFILE in "${BUGINJECTIONPATCHFILES[@]}";
     do
         echo "  Bug injection patch file for instruction $OP: " $BUGINJECTIONPATCHFILE
-        ORIGFILENAME=`head -n 1 $BUGINJECTIONPATCHFILE | awk '{print $5}' | xargs -iFILE basename FILE`
+        ORIGFILENAME=`head -n 1 $BUGINJECTIONPATCHFILE | awk '{print $2}' | xargs -I FILE basename FILE`
         echo "  Original Verilog file name: $ORIGFILENAME"
 
         # Reset changes from bug inserted in previous iteration of loop.
