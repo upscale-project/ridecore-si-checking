@@ -82,13 +82,9 @@ module top
    (* keep *)
    wire [31:0] shimm2;
    (* keep *)
-   wire [6:0] addr;
+   wire [31:0] addr;
    (* keep *)
-   wire [31:0] imm_s;
-   (* keep *)
-   wire [31:0] imm_c;
-   (* keep *)
-   wire [6:0] addr_sw;
+   wire [11:0] addr_sw;
    (* keep *)
    wire [11:0] imm_new;
    (* keep *)
@@ -165,6 +161,7 @@ module top
    dmem datamemory(
 		   .clk(clk),
 		   .addr({2'b0, dmem_addr[`ADDR_LEN-1:2]}),
+       //.addr(dmem_addr),
 		   .wdata(dmem_wdata),
 		   .we(dmem_we),
 		   .rdata(dmem_data)
