@@ -78,7 +78,7 @@ do
     # contains the strin "$OP" (i.e., the current operator name)
     BUGINJECTIONPATCHFILES=`find $PATCHDIR -iname "$OP"`
 
-    declare -a BUGINJECTIONPATCHFILES=(`find $PATCHDIR -iname "*$OP.patch"`);
+    declare -a BUGINJECTIONPATCHFILES=(`find $PATCHDIR -iname "*_$OP.patch"`);
 
     if (( ${#BUGINJECTIONPATCHFILES[@]} == 0 ))
     then
