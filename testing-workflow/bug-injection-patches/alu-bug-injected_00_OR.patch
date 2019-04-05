@@ -5,7 +5,7 @@
           `ALU_OP_ADD : out = in1 + in2;
           `ALU_OP_SLL : out = in1 << shamt;
           `ALU_OP_XOR : out = in1 ^ in2;
-!         `ALU_OP_OR : out = in1 & in2;
+!         `ALU_OP_OR : out = in1 | in2;
           `ALU_OP_AND : out = in1 & in2;
           `ALU_OP_SRL : out = in1 >> shamt;
           `ALU_OP_SEQ : out = {31'b0, in1 == in2};
@@ -13,7 +13,7 @@
           `ALU_OP_ADD : out = in1 + in2;
           `ALU_OP_SLL : out = in1 << shamt;
           `ALU_OP_XOR : out = in1 ^ in2;
-!         `ALU_OP_OR : out = in1 | in2;
+!         `ALU_OP_OR : out = in1 & in2;
           `ALU_OP_AND : out = in1 & in2;
           `ALU_OP_SRL : out = in1 >> shamt;
           `ALU_OP_SEQ : out = {31'b0, in1 == in2};
