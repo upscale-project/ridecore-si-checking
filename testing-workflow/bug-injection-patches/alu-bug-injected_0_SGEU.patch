@@ -1,0 +1,36 @@
+*** ridecore-original-src/alu.v	2019-04-04 21:03:52.000000000 -0700
+--- alu.v	2019-04-01 09:38:20.000000000 -0700
+***************
+*** 19,25 ****
+          `ALU_OP_ADD : out = in1 + in2;
+          `ALU_OP_SLL : out = in1 << shamt;
+          `ALU_OP_XOR : out = in1 ^ in2;
+!         `ALU_OP_OR : out = in1 | in2;
+          `ALU_OP_AND : out = in1 & in2;
+          `ALU_OP_SRL : out = in1 >> shamt;
+          `ALU_OP_SEQ : out = {31'b0, in1 == in2};
+--- 19,25 ----
+          `ALU_OP_ADD : out = in1 + in2;
+          `ALU_OP_SLL : out = in1 << shamt;
+          `ALU_OP_XOR : out = in1 ^ in2;
+!         `ALU_OP_OR : out = in1 & in2;
+          `ALU_OP_AND : out = in1 & in2;
+          `ALU_OP_SRL : out = in1 >> shamt;
+          `ALU_OP_SEQ : out = {31'b0, in1 == in2};
+***************
+*** 29,35 ****
+          `ALU_OP_SLT : out = {31'b0, $signed(in1) < $signed(in2)};
+          `ALU_OP_SGE : out = {31'b0, $signed(in1) >= $signed(in2)};
+          `ALU_OP_SLTU : out = {31'b0, in1 < in2};
+!         `ALU_OP_SGEU : out = {31'b0, in1 < in2};
+          default : out = 0;
+        endcase // case op
+     end
+--- 29,35 ----
+          `ALU_OP_SLT : out = {31'b0, $signed(in1) < $signed(in2)};
+          `ALU_OP_SGE : out = {31'b0, $signed(in1) >= $signed(in2)};
+          `ALU_OP_SLTU : out = {31'b0, in1 < in2};
+!         `ALU_OP_SGEU : out = {31'b0, in1 >= in2};
+          default : out = 0;
+        endcase // case op
+     end
