@@ -1,0 +1,147 @@
+*** ../ridecore-original-src/decoder.v	2019-03-17 10:41:26.000000000 -0700
+--- decoder.v	2019-04-06 21:30:36.000000000 -0700
+***************
+*** 12,18 ****
+  	       output reg [`SRC_A_SEL_WIDTH-1:0]  src_a_sel,
+                 output reg [`SRC_B_SEL_WIDTH-1:0]  src_b_sel,
+  	       output reg 			  wr_reg,
+! 	       
+  	       output reg 			  uses_rs1,
+  	       output reg 			  uses_rs2,
+  	       output reg 			  illegal_instruction,
+--- 12,18 ----
+  	       output reg [`SRC_A_SEL_WIDTH-1:0]  src_a_sel,
+                 output reg [`SRC_B_SEL_WIDTH-1:0]  src_b_sel,
+  	       output reg 			  wr_reg,
+! 
+  	       output reg 			  uses_rs1,
+  	       output reg 			  uses_rs2,
+  	       output reg 			  illegal_instruction,
+***************
+*** 21,27 ****
+  //	       output reg 			  dmem_use,
+  //	       output reg 			  dmem_write,
+  	       output wire [2:0] 		  dmem_size,
+! 	       output wire [`MEM_TYPE_WIDTH-1:0]  dmem_type, 
+  	       output reg [`MD_OP_WIDTH-1:0] 	  md_req_op,
+  	       output reg 			  md_req_in_1_signed,
+  	       output reg 			  md_req_in_2_signed,
+--- 21,27 ----
+  //	       output reg 			  dmem_use,
+  //	       output reg 			  dmem_write,
+  	       output wire [2:0] 		  dmem_size,
+! 	       output wire [`MEM_TYPE_WIDTH-1:0]  dmem_type,
+  	       output reg [`MD_OP_WIDTH-1:0] 	  md_req_op,
+  	       output reg 			  md_req_in_1_signed,
+  	       output reg 			  md_req_in_2_signed,
+***************
+*** 32,52 ****
+     wire [`ALU_OP_WIDTH-1:0] 			  srl_or_sra;
+     wire [`ALU_OP_WIDTH-1:0] 			  add_or_sub;
+     wire [`RS_ENT_SEL-1:0] 			  rs_ent_md;
+!    
+     wire [6:0] 		    opcode = inst[6:0];
+     wire [6:0] 		    funct7 = inst[31:25];
+     wire [11:0] 		    funct12 = inst[31:20];
+     wire [2:0] 		    funct3 = inst[14:12];
+  // reg [`MD_OP_WIDTH-1:0]   md_req_op;
+     reg [`ALU_OP_WIDTH-1:0]  alu_op_arith;
+!    
+     assign rd = inst[11:7];
+     assign rs1 = inst[19:15];
+     assign rs2 = inst[24:20];
+  
+     assign dmem_size = {1'b0,funct3[1:0]};
+     assign dmem_type = funct3;
+!    
+     always @ (*) begin
+        imm_type = `IMM_I;
+        src_a_sel = `SRC_A_RS1;
+--- 32,52 ----
+     wire [`ALU_OP_WIDTH-1:0] 			  srl_or_sra;
+     wire [`ALU_OP_WIDTH-1:0] 			  add_or_sub;
+     wire [`RS_ENT_SEL-1:0] 			  rs_ent_md;
+! 
+     wire [6:0] 		    opcode = inst[6:0];
+     wire [6:0] 		    funct7 = inst[31:25];
+     wire [11:0] 		    funct12 = inst[31:20];
+     wire [2:0] 		    funct3 = inst[14:12];
+  // reg [`MD_OP_WIDTH-1:0]   md_req_op;
+     reg [`ALU_OP_WIDTH-1:0]  alu_op_arith;
+! 
+     assign rd = inst[11:7];
+     assign rs1 = inst[19:15];
+     assign rs2 = inst[24:20];
+  
+     assign dmem_size = {1'b0,funct3[1:0]};
+     assign dmem_type = funct3;
+! 
+     always @ (*) begin
+        imm_type = `IMM_I;
+        src_a_sel = `SRC_A_RS1;
+***************
+*** 59,65 ****
+        //     dmem_write = 1'b0;
+        rs_ent = `RS_ENT_ALU;
+        alu_op = `ALU_OP_ADD;
+!       
+        case (opcode)
+  	`RV32_LOAD : begin
+  //           dmem_use = 1'b1;
+--- 59,65 ----
+        //     dmem_write = 1'b0;
+        rs_ent = `RS_ENT_ALU;
+        alu_op = `ALU_OP_ADD;
+! 
+        case (opcode)
+  	`RV32_LOAD : begin
+  //           dmem_use = 1'b1;
+***************
+*** 196,202 ****
+          `RV32_FUNCT3_SLL : alu_op_arith = `ALU_OP_SLL;
+          `RV32_FUNCT3_SLT : alu_op_arith = `ALU_OP_SLT;
+          `RV32_FUNCT3_SLTU : alu_op_arith = `ALU_OP_SLTU;
+!         `RV32_FUNCT3_XOR : alu_op_arith = `ALU_OP_XOR;
+          `RV32_FUNCT3_SRA_SRL : alu_op_arith = srl_or_sra;
+          `RV32_FUNCT3_OR : alu_op_arith = `ALU_OP_OR;
+          `RV32_FUNCT3_AND : alu_op_arith = `ALU_OP_AND;
+--- 196,202 ----
+          `RV32_FUNCT3_SLL : alu_op_arith = `ALU_OP_SLL;
+          `RV32_FUNCT3_SLT : alu_op_arith = `ALU_OP_SLT;
+          `RV32_FUNCT3_SLTU : alu_op_arith = `ALU_OP_SLTU;
+!         `RV32_FUNCT3_XOR : alu_op_arith = `ALU_OP_OR;
+          `RV32_FUNCT3_SRA_SRL : alu_op_arith = srl_or_sra;
+          `RV32_FUNCT3_OR : alu_op_arith = `ALU_OP_OR;
+          `RV32_FUNCT3_AND : alu_op_arith = `ALU_OP_AND;
+***************
+*** 212,218 ****
+  		       (funct3 == `RV32_FUNCT3_MULHSU) ||
+  		       (funct3 == `RV32_FUNCT3_MULHU)
+  		       ) ? `RS_ENT_MUL : `RS_ENT_DIV;
+!    
+     always @(*) begin
+        md_req_op = `MD_OP_MUL;
+        md_req_in_1_signed = 0;
+--- 212,218 ----
+  		       (funct3 == `RV32_FUNCT3_MULHSU) ||
+  		       (funct3 == `RV32_FUNCT3_MULHU)
+  		       ) ? `RS_ENT_MUL : `RS_ENT_DIV;
+! 
+     always @(*) begin
+        md_req_op = `MD_OP_MUL;
+        md_req_in_1_signed = 0;
+***************
+*** 254,259 ****
+        endcase
+     end
+  
+!    
+  endmodule // decoder
+  `default_nettype wire
+--- 254,259 ----
+        endcase
+     end
+  
+! 
+  endmodule // decoder
+  `default_nettype wire
