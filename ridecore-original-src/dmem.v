@@ -11,11 +11,11 @@ module dmem
    );
 
    reg [`DATA_LEN-1:0] 	      mem [0:127];
-   
+
    always @ (posedge clk) begin
       rdata <= mem[addr[6:0]];
       if (we)
-	mem[addr] <= wdata;
+	mem[addr[6:0]] <= wdata;
    end
 endmodule // dmem
 `default_nettype wire

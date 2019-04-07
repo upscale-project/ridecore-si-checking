@@ -41,7 +41,7 @@ module exunit_ldst
    wire 			 clearbusy;
    wire [`ADDR_LEN-1:0] 	 effaddr;
    wire 			 killspec1;
-   
+
    //LATCH
    reg 				 dstval_latch;
    reg [`RRF_SEL-1:0] 		 rrftag_latch;
@@ -65,7 +65,7 @@ module exunit_ldst
    assign storeaddr = effaddr;
    assign ldaddr = effaddr;
    assign effaddr = ex_src1 + imm;
-   
+
    always @ (posedge clk) begin
       if (reset | killspec1 | ~busy | (~dstval & fullsb)) begin
 	 dstval_latch <= 0;
