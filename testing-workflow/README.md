@@ -52,7 +52,9 @@ Bug are injected using the Linux tool `patch`. Changes are reverted
 using `git reset`.
 
 The names of patch files must contain the name of the operator as
-listed in the `../cosa/single.txt` files.
+listed in the `../cosa/single.txt` files. The exact naming scheme of
+the patch files is `*_OPNAME.patch` where `OPNAME` is the name of the
+operator as listed in file `../cosa/single.txt`.
 
 The script `run-si-tests.sh` runs tests for all patch files found in
 directory `./bug-injection-patches`.
