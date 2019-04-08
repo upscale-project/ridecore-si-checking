@@ -1,0 +1,19 @@
+*** ../ridecore-original-src/alu.v	2019-04-05 11:07:43.000000000 -0700
+--- alu.v	2019-04-06 20:55:57.000000000 -0700
+***************
+*** 17,23 ****
+     always @(*) begin
+        case (op)
+          `ALU_OP_ADD : out = in1 + in2;
+!         `ALU_OP_SLL : out = in1 << shamt;
+          `ALU_OP_XOR : out = in1 ^ in2;
+          `ALU_OP_OR : out = in1 | in2;
+          `ALU_OP_AND : out = in1 & in2;
+--- 17,23 ----
+     always @(*) begin
+        case (op)
+          `ALU_OP_ADD : out = in1 + in2;
+!         `ALU_OP_SLL : out = in1 | shamt;
+          `ALU_OP_XOR : out = in1 ^ in2;
+          `ALU_OP_OR : out = in1 | in2;
+          `ALU_OP_AND : out = in1 & in2;

@@ -1,0 +1,19 @@
+*** ../ridecore-original-src/alu.v	2019-04-05 11:07:43.000000000 -0700
+--- alu.v	2019-04-06 21:14:27.000000000 -0700
+***************
+*** 21,27 ****
+          `ALU_OP_XOR : out = in1 ^ in2;
+          `ALU_OP_OR : out = in1 | in2;
+          `ALU_OP_AND : out = in1 & in2;
+!         `ALU_OP_SRL : out = in1 >> shamt;
+          `ALU_OP_SEQ : out = {31'b0, in1 == in2};
+          `ALU_OP_SNE : out = {31'b0, in1 != in2};
+          `ALU_OP_SUB : out = in1 - in2;
+--- 21,27 ----
+          `ALU_OP_XOR : out = in1 ^ in2;
+          `ALU_OP_OR : out = in1 | in2;
+          `ALU_OP_AND : out = in1 & in2;
+!         `ALU_OP_SRL : out = in1 | shamt;
+          `ALU_OP_SEQ : out = {31'b0, in1 == in2};
+          `ALU_OP_SNE : out = {31'b0, in1 != in2};
+          `ALU_OP_SUB : out = in1 - in2;

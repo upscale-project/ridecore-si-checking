@@ -1,0 +1,19 @@
+*** ridecore-original-src/alu.v	2019-04-05 11:55:15.850013637 -0700
+--- /tmp/alu.v	2019-04-05 11:54:53.433811997 -0700
+***************
+*** 19,25 ****
+          `ALU_OP_ADD : out = in1 + in2;
+          `ALU_OP_SLL : out = in1 << shamt;
+          `ALU_OP_XOR : out = in1 ^ in2;
+!         `ALU_OP_OR : out = in1 | in2;
+          `ALU_OP_AND : out = in1 & in2;
+          `ALU_OP_SRL : out = in1 >> shamt;
+          `ALU_OP_SEQ : out = {31'b0, in1 == in2};
+--- 19,25 ----
+          `ALU_OP_ADD : out = in1 + in2;
+          `ALU_OP_SLL : out = in1 << shamt;
+          `ALU_OP_XOR : out = in1 ^ in2;
+!         `ALU_OP_OR : out = in1 & in2;
+          `ALU_OP_AND : out = in1 & in2;
+          `ALU_OP_SRL : out = in1 >> shamt;
+          `ALU_OP_SEQ : out = {31'b0, in1 == in2};

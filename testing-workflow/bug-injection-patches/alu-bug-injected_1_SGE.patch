@@ -1,0 +1,19 @@
+*** ../ridecore-original-src/alu.v	2019-04-05 11:07:43.000000000 -0700
+--- alu.v	2019-04-06 21:18:46.000000000 -0700
+***************
+*** 27,33 ****
+          `ALU_OP_SUB : out = in1 - in2;
+          `ALU_OP_SRA : out = $signed(in1) >>> shamt;
+          `ALU_OP_SLT : out = {31'b0, $signed(in1) < $signed(in2)};
+!         `ALU_OP_SGE : out = {31'b0, $signed(in1) >= $signed(in2)};
+          `ALU_OP_SLTU : out = {31'b0, in1 < in2};
+          `ALU_OP_SGEU : out = {31'b0, in1 >= in2};
+          default : out = 0;
+--- 27,33 ----
+          `ALU_OP_SUB : out = in1 - in2;
+          `ALU_OP_SRA : out = $signed(in1) >>> shamt;
+          `ALU_OP_SLT : out = {31'b0, $signed(in1) < $signed(in2)};
+!         `ALU_OP_SGE : out = {31'b0, $signed(in1) != $signed(in2)};
+          `ALU_OP_SLTU : out = {31'b0, in1 < in2};
+          `ALU_OP_SGEU : out = {31'b0, in1 >= in2};
+          default : out = 0;
