@@ -94,6 +94,7 @@ module top
    (* keep *)
    wire [63:0] val_mul;
 
+
    assign opcode = instruction[6:0];
    assign rd = instruction[11:7];
    assign rs1 = instruction[19:15];

@@ -7,10 +7,12 @@ rs1_copy : BV(5) ;
 rs2_copy : BV(5) ;
 rd_copy : BV(5) ;
 funct7_copy : BV(7) ;
+funct3_copy : BV(3) ;
 imm_copy : BV(32) ;
 shimm_copy : BV(32) ;
 shimm2_copy : BV(32) ;
 pc_copy : BV(32) ;
+pc_offset : BV(32) ;
 
 INIT
 rs1_copy = 0_5 ;
@@ -20,7 +22,9 @@ imm_copy = 0_32 ;
 shimm_copy = 0_32 ;
 shimm2_copy = 0_32 ;
 funct7_copy = 0_7;
+funct3_copy = 0_3;
 pc_copy = 0_32;
+pc_offset = 0_32;
 
 INVAR
 
@@ -29,7 +33,9 @@ next(rs1_copy) = ((state_counter = 7_10) ? rs1 : rs1_copy) ;
 next(rs2_copy) = ((state_counter = 7_10) ? rs2 : rs2_copy) ;
 next(rd_copy) = ((state_counter = 7_10) ? rd : rd_copy) ;
 next(funct7_copy) = ((state_counter = 7_10) ? funct7 : funct7_copy) ;
+next(funct3_copy) = ((state_counter = 7_10) ? funct3 : funct3_copy) ;
 next(imm_copy) = ((state_counter = 7_10) ? imm : imm_copy) ;
 next(shimm_copy) = ((state_counter = 7_10) ? shimm : shimm_copy) ;
 next(shimm2_copy) = ((state_counter = 20_10) ? shimm2 : shimm2_copy) ;
 next(pc_copy) = ((state_counter = 9_10) ? pc : pc_copy) ;
+next(pc_offset) = ((state_counter = 9_10) ? 0_19::funct7_copy[6:6]::rd_copy[0:0]::funct7_copy[0:5]::rd_copy[1:4]::0_1 : pc_offset);

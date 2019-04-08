@@ -11,16 +11,16 @@ no_arrays: False
 default_initial_value: 0
 prove: False
 
-[Single Instruction for LW]
+[Single Instruction for JAL]
 description: "Check for Single Instruction"
-assumptions: (state_counter = 7_10) -> ((opcode = 3_7) &(funct3 = 2_3) & (rd!= 0_5) &(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy])); (state_counter = 20_10) -> ((next(addr) = val1+imm_copy)) ;
-formula: (state_counter = 26_10)-> (datamemory.mem[addr[2:8]] = pipe.aregfile.regfile.mem[rd_copy])
+assumptions: (state_counter = 7_10) -> ((opcode = 111_7) & (rd != 0_5) & (next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy])& (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
+formula: ((state_counter = 20_10) & (pc_offset > 32_32))-> (pc = pc_copy + funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::rd_copy[0:0]::funct7_copy[0:5]::rd_copy[1:4]::0_1)
 verification: safety
 bmc_length_min: 20
 
-[Single Instruction for SW]
+[Single Instruction for JALR]
 description: "Check for Single Instruction"
-assumptions: (state_counter = 7_10) -> ((opcode = 35_7) & (funct3 = 2_3) & (rd!= 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy])& (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]) & (next(imm_new) = funct7_copy::rd_copy)); (state_counter = 20_10) -> ((next(addr_sw) = val1[0:11]+imm_new)) ;
-formula: (state_counter = 26_10)-> (datamemory.mem[addr_sw[2:8]] = pipe.aregfile.regfile.mem[rs2_copy])
+assumptions: (state_counter = 7_10) -> ((opcode = 103_7) & (rd != 0_5) & (next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy])& (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
+formula: ((state_counter = 20_10) & (val1 != val2) & (pc_offset > 32_32))-> (pc = pc_copy + funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::rd_copy[0:0]::funct7_copy[0:5]::rd_copy[1:4]::0_1)
 verification: safety
 bmc_length_min: 20

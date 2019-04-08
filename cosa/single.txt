@@ -76,14 +76,14 @@ bmc_length_min: 20
 
 [Single Instruction for ADD]
 description: "Check for Single Instruction"
-assumptions: (state_counter = 7_10) -> ((opcode = 51_7) & (funct3 = 0_3)& (funct7 = 0_7) & (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]) & (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
-formula: (state_counter = 22_10)-> (val1 + val2 = pipe.aregfile.regfile.mem[rd_copy])
+assumptions: (state_counter = 7_10) -> ((opcode = 51_7) & (funct3 = 0_3)& (funct7 = 0_7) & (rd != 0_5) &(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]) & (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
+formula: (state_counter = 20_10)-> (val1 - val2 = pipe.aregfile.regfile.mem[rd_copy])
 verification: safety
 bmc_length_min: 20
 
 [Single Instruction for SUB]
 description: "Check for Single Instruction"
-assumptions: (state_counter = 7_10) -> ((opcode = 51_7) & (funct3 = 0_3)& (funct7 = 32_7) & (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]) & (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
+assumptions: (state_counter = 7_10) -> ((opcode = 51_7) & (funct3 = 0_3)& (funct7 = 32_7) & (rd != 0_5) &(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]) & (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
 formula: (state_counter = 22_10)-> (val1 - val2 = pipe.aregfile.regfile.mem[rd_copy])
 verification: safety
 bmc_length_min: 20

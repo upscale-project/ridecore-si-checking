@@ -164,12 +164,22 @@ module inst_constraint(clk,
    wire allowed_B;
    assign allowed_B = (BEQ || BNE || BLT || BLTU || BGE || BGEU);
 
+   (* keep *)
+   wire       LUI;
+   (* keep *)
+   wire       AUIPC;
+
+   wire allowed_U;
+   assign LUI = (opcode == 7'b0110111);
+   assign AUIPC = (opcode == 7'b0010111);
+   assign allowed_U = (LUI || AUIPC);
+
    // NOP to stall the fetch stage (stalling is done by making valid_instruction 0)
    wire 	NOP;
    assign NOP = (opcode == 7'b1111111);
 
    always @(posedge clk) begin
-      assume property (allowed_alu_I | allowed_alu_R | allowed_mem | allowed_B | allowed_J | NOP);
+      assume property (allowed_alu_I | allowed_alu_R | allowed_mem | allowed_B | allowed_J | allowed_U | NOP);
    end
 
 endmodule // inst_constraint

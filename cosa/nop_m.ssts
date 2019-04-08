@@ -12,5 +12,5 @@ INVAR
 
 TRANS
 (state_counter > 9_10) -> (next(opcode) = 127_7) ;
-(state_counter > 19_10) -> ((next(val1) = val1) &(next(val2) = val2) & (next(val_mul) = val_mul));
-(state_counter > 20_10) -> ((next(addr) = addr)&(next(addr_sw) = addr_sw)) ;
+(state_counter > 19_10) -> ((next(val1) = val1) & (next(val2) = val2) & (next(val_mul) = val_mul));
+(state_counter > 20_10) -> ((next(addr) = addr) & (next(addr_sw) = addr_sw)) ;
