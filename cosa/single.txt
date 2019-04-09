@@ -133,14 +133,14 @@ bmc_length_min: 20
 [Single Instruction for SLTU]
 description: "Check for Single Instruction"
 assumptions: (state_counter = 7_10) -> ((opcode = 51_7) & (funct3 = 3_3)& (funct7 = 0_7) & (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]) & (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
-formula: ((state_counter = 22_10) & (val1 < val2))-> (pipe.aregfile.regfile.mem[rd_copy] = 1_32)
+formula: ((state_counter = 22_10) & (val1 < val2))-> (pipe.aregfile.regfile.mem[rd_copy] = 1_32); ((state_counter = 22_10) & (val1 >= val2))-> (pipe.aregfile.regfile.mem[rd_copy] = 0_32)
 verification: safety
 bmc_length_min: 20
 
 [Single Instruction for SLT]
 description: "Check for Single Instruction"
 assumptions: (state_counter = 7_10) -> ((opcode = 51_7) & (funct3 = 2_3)& (funct7 = 0_7) & (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]) & (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
-formula: ((state_counter = 22_10) & (val1 s< val2))-> (pipe.aregfile.regfile.mem[rd_copy] = 1_32)
+formula: ((state_counter = 22_10) & (val1 s< val2))-> (pipe.aregfile.regfile.mem[rd_copy] = 1_32); ((state_counter = 22_10) & (val1 s>= val2))-> (pipe.aregfile.regfile.mem[rd_copy] = 0_32)
 verification: safety
 bmc_length_min: 20
 
