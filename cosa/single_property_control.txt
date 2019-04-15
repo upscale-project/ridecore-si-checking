@@ -14,55 +14,63 @@ prove: False
 [Single Instruction for LUI]
 description: "Check for Single Instruction"
 assumptions: (state_counter = 7_10) -> ((opcode = 55_7) & (rd != 0_5) & (next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy])& (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
-formula: (state_counter = 22_10)-> (imm_copy[0:11]::rs1_copy::funct3_copy::0_12 + 1_32= pipe.aregfile.regfile.mem[rd_copy])
+formula: (state_counter = 22_10)-> (imm_copy[0:11]::rs1_copy::funct3_copy::0_12 = pipe.aregfile.regfile.mem[rd_copy])
 verification: safety
-bmc_length_min: 20
+bmc_length_min: 18
 
 [Single Instruction for AUIPC]
 description: "Check for Single Instruction"
 assumptions: (state_counter = 7_10) -> ((opcode = 23_7) & (rd != 0_5) & (next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy])& (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
-formula: (state_counter = 22_10)-> (imm_copy[0:11]::rs1_copy::funct3_copy::0_12 + pc_copy +10_32 = pipe.aregfile.regfile.mem[rd_copy])
+formula: (state_counter = 22_10)-> (imm_copy[0:11]::rs1_copy::funct3_copy::0_12 + pc_copy = pipe.aregfile.regfile.mem[rd_copy])
 verification: safety
-bmc_length_min: 20
+bmc_length_min: 18
 
 [Single Instruction for BEQ]
 description: "Check for Single Instruction"
 assumptions: (state_counter = 7_10) -> ((opcode = 99_7) & (funct3 = 0_3)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy])& (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
 formula: ((state_counter = 20_10) & (val1 = val2) & (pc_offset > 32_32))-> (pc = pc_copy + funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::rd_copy[0:0]::funct7_copy[0:5]::rd_copy[1:4]::0_1)
 verification: safety
-bmc_length_min: 20
+bmc_length_min: 18
 
 [Single Instruction for BNE]
 description: "Check for Single Instruction"
 assumptions: (state_counter = 7_10) -> ((opcode = 99_7) & (funct3 = 1_3)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy])& (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
 formula: ((state_counter = 20_10) & (val1 != val2) & (pc_offset > 32_32))-> (pc = pc_copy + funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::rd_copy[0:0]::funct7_copy[0:5]::rd_copy[1:4]::0_1)
 verification: safety
-bmc_length_min: 20
+bmc_length_min: 18
 
 [Single Instruction for BLT]
 description: "Check for Single Instruction"
 assumptions: (state_counter = 7_10) -> ((opcode = 99_7) & (funct3 = 4_3)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy])& (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
 formula: ((state_counter = 20_10) & (val1 s< val2) & (pc_offset > 32_32))-> (pc = pc_copy + funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::rd_copy[0:0]::funct7_copy[0:5]::rd_copy[1:4]::0_1)
 verification: safety
-bmc_length_min: 20
+bmc_length_min: 18
 
 [Single Instruction for BGE]
 description: "Check for Single Instruction"
 assumptions: (state_counter = 7_10) -> ((opcode = 99_7) & (funct3 = 5_3)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy])& (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
 formula: ((state_counter = 20_10) & (val1 s>= val2) & (pc_offset > 32_32))-> (pc = pc_copy + funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::rd_copy[0:0]::funct7_copy[0:5]::rd_copy[1:4]::0_1)
 verification: safety
-bmc_length_min: 20
+bmc_length_min: 18
 
 [Single Instruction for BLTU]
 description: "Check for Single Instruction"
 assumptions: (state_counter = 7_10) -> ((opcode = 99_7) & (funct3 = 6_3)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy])& (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
 formula: ((state_counter = 20_10) & (val1 < val2) & (pc_offset > 32_32))-> (pc = pc_copy + funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::rd_copy[0:0]::funct7_copy[0:5]::rd_copy[1:4]::0_1)
 verification: safety
-bmc_length_min: 20
+bmc_length_min: 18
 
 [Single Instruction for BGEU]
 description: "Check for Single Instruction"
 assumptions: (state_counter = 7_10) -> ((opcode = 99_7) & (funct3 = 7_3)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy])& (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
 formula: ((state_counter = 20_10) & (val1 >= val2) & (pc_offset > 32_32))-> (pc = pc_copy + funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::rd_copy[0:0]::funct7_copy[0:5]::rd_copy[1:4]::0_1)
 verification: safety
-bmc_length_min: 20
+bmc_length_min: 18
+
+
+[Single Instruction for JAL]
+description: "Check for Single Instruction"
+assumptions: (state_counter = 7_10) -> ((opcode = 111_7) & (rd != 0_5) & (next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy])& (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
+formula: ((state_counter = 20_10) & (pc_offset_j > 32_32))-> ((pc = pc_copy + imm_copy[11:11]::imm_copy[11:11]::imm_copy[11:11]::imm_copy[11:11]::imm_copy[11:11]::imm_copy[11:11]::imm_copy[11:11]::imm_copy[11:11]::imm_copy[11:11]::imm_copy[11:11]::imm_copy[11:11]::imm_copy[11:11]::rs1_copy::funct3_copy::imm_copy[0:0]::imm_copy[1:10]::0_1)); ((state_counter = 22_10))-> ((pipe.aregfile.regfile.mem[rd_copy] = pc_copy + 4_32))
+verification: safety
+bmc_length_min: 18
