@@ -1,0 +1,19 @@
+[GENERAL]
+model_file: ridecore.vlist[top],reset_procedure.ets,init.ssts,state_copy.ssts,nop_m.ssts
+clock_behaviors: DetClock(clk, 1)
+vcd: True
+
+[DEFAULT]
+bmc_length: 27
+solver_name: btor
+precondition: reset_done
+no_arrays: False
+default_initial_value: 0
+prove: False
+
+[Single Instruction for ANDI]
+description: "Check for Single Instruction"
+assumptions: (state_counter = 7_10) -> ((opcode = 19_7) & (funct3 = 7_3)& (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]));
+formula: (state_counter = 22_10)-> ((val1 & imm_copy) = pipe.aregfile.regfile.mem[rd_copy])
+verification: safety
+bmc_length_min: 20

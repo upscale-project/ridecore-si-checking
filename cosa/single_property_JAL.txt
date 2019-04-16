@@ -1,0 +1,26 @@
+[GENERAL]
+model_file: ridecore.vlist[top],reset_procedure.ets,init.ssts,state_copy.ssts,nop_m.ssts
+clock_behaviors: DetClock(clk, 1)
+vcd: True
+
+[DEFAULT]
+bmc_length: 27
+solver_name: btor
+precondition: reset_done
+no_arrays: False
+default_initial_value: 0
+prove: False
+
+[Single Instruction for JALPC]
+description: "Check for Single Instruction"
+assumptions: (state_counter = 7_10) -> ((opcode = 111_7) & (rd != 0_5) & (next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy])& (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
+formula: ((state_counter = 20_10) & (pc_offset_j != 4_32))-> ((pc = pc_copy + imm_copy[11:11]::imm_copy[11:11]::imm_copy[11:11]::imm_copy[11:11]::imm_copy[11:11]::imm_copy[11:11]::imm_copy[11:11]::imm_copy[11:11]::imm_copy[11:11]::imm_copy[11:11]::imm_copy[11:11]::imm_copy[11:11]::rs1_copy::funct3_copy::imm_copy[0:0]::imm_copy[1:10]::0_1)); 
+verification: safety
+bmc_length_min: 18
+
+[Single Instruction for JALRD]
+description: "Check for Single Instruction"
+assumptions: (state_counter = 7_10) -> ((opcode = 111_7) & (rd != 0_5) & (next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy])& (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
+formula: ((state_counter = 22_10))-> ((pipe.aregfile.regfile.mem[rd_copy] = pc_copy + 4_32))
+verification: safety
+bmc_length_min: 18

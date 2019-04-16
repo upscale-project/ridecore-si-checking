@@ -33,7 +33,7 @@ module pipeline
    wire [`INSN_LEN-1:0] inst2;
    wire 		invalid2_pipe;
    wire [`GSH_BHR_LEN-1:0] bhr;
-   
+
    //Instruction Buffer
    reg 			   prcond_if;
    reg [`ADDR_LEN-1:0] 	   npc_if;
@@ -60,7 +60,7 @@ module pipeline
    wire [`ALU_OP_WIDTH-1:0]    alu_op_1;
    wire [`RS_ENT_SEL-1:0]      rs_ent_1;
    wire [2:0] 		       dmem_size_1;
-   wire [`MEM_TYPE_WIDTH-1:0]  dmem_type_1;			  
+   wire [`MEM_TYPE_WIDTH-1:0]  dmem_type_1;
    wire [`MD_OP_WIDTH-1:0]     md_req_op_1;
    wire 		       md_req_in_1_signed_1;
    wire 		       md_req_in_2_signed_1;
@@ -79,7 +79,7 @@ module pipeline
    wire [`ALU_OP_WIDTH-1:0] 	alu_op_2;
    wire [`RS_ENT_SEL-1:0] 	rs_ent_2;
    wire [2:0] 			dmem_size_2;
-   wire [`MEM_TYPE_WIDTH-1:0] 	dmem_type_2;			  
+   wire [`MEM_TYPE_WIDTH-1:0] 	dmem_type_2;
    wire [`MD_OP_WIDTH-1:0] 	md_req_op_2;
    wire 			md_req_in_1_signed_2;
    wire 			md_req_in_2_signed_2;
@@ -94,7 +94,7 @@ module pipeline
    wire 			isbranch2;
    wire 			branchvalid1;
    wire 			branchvalid2;
-   
+
    //Latch
    //Decode Info1
    reg [`IMM_TYPE_WIDTH-1:0] 	imm_type_1_id;
@@ -110,7 +110,7 @@ module pipeline
    reg [`ALU_OP_WIDTH-1:0] 	alu_op_1_id;
    reg [`RS_ENT_SEL-1:0] 	rs_ent_1_id;
    reg [2:0] 			dmem_size_1_id;
-   reg [`MEM_TYPE_WIDTH-1:0] 	dmem_type_1_id;			  
+   reg [`MEM_TYPE_WIDTH-1:0] 	dmem_type_1_id;
    reg [`MD_OP_WIDTH-1:0] 	md_req_op_1_id;
    reg 				md_req_in_1_signed_1_id;
    reg 				md_req_in_2_signed_1_id;
@@ -129,7 +129,7 @@ module pipeline
    reg [`ALU_OP_WIDTH-1:0] 	alu_op_2_id;
    reg [`RS_ENT_SEL-1:0] 	rs_ent_2_id;
    reg [2:0] 			dmem_size_2_id;
-   reg [`MEM_TYPE_WIDTH-1:0] 	dmem_type_2_id;			  
+   reg [`MEM_TYPE_WIDTH-1:0] 	dmem_type_2_id;
    reg [`MD_OP_WIDTH-1:0] 	md_req_op_2_id;
    reg 				md_req_in_1_signed_2_id;
    reg 				md_req_in_2_signed_2_id;
@@ -174,7 +174,7 @@ module pipeline
    wire [`RRF_SEL-1:0] 	rrfptr;
    wire [`RRF_SEL-1:0] 	rrftagfix;
 
-   //arf wire 
+   //arf wire
    wire [`RRF_SEL-1:0] 	rs1_1tag;
    wire [`RRF_SEL-1:0] 	rs2_1tag;
    wire [`RRF_SEL-1:0] 	rs1_2tag;
@@ -199,10 +199,10 @@ module pipeline
    wire 		rvalid2_2;
    wire [`DATA_LEN-1:0] com1data;
    wire [`DATA_LEN-1:0] com2data;
-   
+
    //Src Manager wire
    wire [`DATA_LEN-1:0] src1_1; //To reservation station
-   wire [`DATA_LEN-1:0] src2_1; 
+   wire [`DATA_LEN-1:0] src2_1;
    wire [`DATA_LEN-1:0] src1_2;
    wire [`DATA_LEN-1:0] src2_2;
    wire 		resolved1_1;
@@ -216,7 +216,7 @@ module pipeline
    //BrImmgen wire
    wire [`DATA_LEN-1:0] brimm1; //To reservation station
    wire [`DATA_LEN-1:0] brimm2;
-   
+
    //RS Request Generator wire
    wire 		req1_alu;
    wire 		req2_alu;
@@ -253,7 +253,7 @@ module pipeline
    wire [`ALU_ENT_NUM*(`RRF_SEL+2)-1:0] histvect2;
    wire [`RRF_SEL+1:0] 			entval_alu1;
    wire [`RRF_SEL+1:0] 			entval_alu2;
-   
+
    wire 				nextrrfcyc;
 
    wire [`DATA_LEN-1:0]    ex_src1_alu1;
@@ -281,7 +281,7 @@ module pipeline
    wire [`ALU_OP_WIDTH-1:0]    alu_op_alu2;
    wire [`SPECTAG_LEN-1:0]     spectag_alu2;
    wire 		       specbit_alu2;
-   
+
    wire [`LDST_ENT_SEL-1:0]    allocent1_ldst;
    wire [`LDST_ENT_SEL-1:0]    allocent2_ldst;
    wire [`LDST_ENT_NUM-1:0]    busyvec_ldst;
@@ -404,7 +404,7 @@ module pipeline
    wire [`DATA_LEN-1:0]        storedata;
    wire [`ADDR_LEN-1:0]        storeaddr;
    wire 		       stfin;
-   
+
    reg [`DATA_LEN-1:0] 	       buf_ex_src1_ldst;
    reg [`DATA_LEN-1:0] 	       buf_ex_src2_ldst;
    reg [`ADDR_LEN-1:0] 	       buf_pc_ldst;
@@ -430,7 +430,7 @@ module pipeline
    reg 			       buf_src1_signed_mul;
    reg 			       buf_src2_signed_mul;
    reg 			       buf_sel_lohi_mul;
-   
+
    //BRANCH
    wire 		       prmiss;
    wire 		       prsuccess;
@@ -438,11 +438,11 @@ module pipeline
    wire [`ADDR_LEN-1:0]        jmpaddr_taken;
    wire 		       brcond;
    wire [`SPECTAG_LEN-1:0]     tagregfix;
-   
+
    wire [`DATA_LEN-1:0]        result_branch;
    wire 		       rrfwe_branch;
    wire 		       robwe_branch;
-   
+
    reg [`DATA_LEN-1:0] 	       buf_ex_src1_branch;
    reg [`DATA_LEN-1:0] 	       buf_ex_src2_branch;
    reg [`ADDR_LEN-1:0] 	       buf_pc_branch;
@@ -454,7 +454,7 @@ module pipeline
    reg 			       buf_specbit_branch;
    reg [`ADDR_LEN-1:0] 	       buf_praddr_branch;
    reg [6:0] 		       buf_opcode_branch;
-   
+
    //miss prediction fix table
    wire [`SPECTAG_LEN-1:0] mpft_valid;
    wire [`SPECTAG_LEN-1:0] spectagfix;
@@ -473,13 +473,13 @@ module pipeline
    wire 		   brcond_combranch;
    wire 		   combranch;
    wire [`ADDR_LEN-1:0]    jmpaddr_combranch;
-   
+
    //IF Stage********************************************************
 //   assign stall_IF = stall_ID;
 //   assign kill_IF = prmiss;
    assign stall_IF = stall_ID | stall_DP;
    assign kill_IF = prmiss;
-   
+
    always @ (posedge clk) begin
       if (reset) begin
 	 pc <= `ENTRY_POINT;
@@ -529,7 +529,7 @@ module pipeline
 	 inv1_if <= 1;
 	 inv2_if <= 1;
 	 bhr_if <= 0;
-	 
+
       end else if (~stall_IF) begin
 	 prcond_if <= prcond;
 	 npc_if <= npc;
@@ -543,7 +543,7 @@ module pipeline
 	 // inv2_if <= invalid2_pipe;
    inv2_if <= 1'b1;
 	 bhr_if <= bhr;
-	 
+
       end
    end // always @ (posedge clk)
 
@@ -552,14 +552,14 @@ module pipeline
 //   assign kill_ID = prmiss;
    assign stall_ID = ~attachable | prsuccess;
    assign kill_ID = (stall_ID & ~stall_DP) | prmiss;
-   
+
    assign isbranch1 = (~inv1_if && (rs_ent_1 == `RS_ENT_BRANCH)) ?
 		      1'b1 : 1'b0;
    assign isbranch2 = (~inv2_if && (rs_ent_2 == `RS_ENT_BRANCH)) ?
 		      1'b1 : 1'b0;
    assign branchvalid1 = isbranch1 & prcond_if;
    assign branchvalid2 = isbranch2 & ~branchvalid1;
-   
+
    tag_generator taggen(
 			.clk(clk),
 			.reset(reset),
@@ -576,7 +576,7 @@ module pipeline
 			.attachable(attachable),
 			.tagreg(tagreg)
 			);
-   
+
    decoder dec1(
 		.inst(inst1_if),
 		.imm_type(imm_type_1),
@@ -636,7 +636,7 @@ module pipeline
 	 alu_op_1_id <= 0;
 	 rs_ent_1_id <= 0;
 	 dmem_size_1_id <= 0;
-	 dmem_type_1_id <= 0;			  
+	 dmem_type_1_id <= 0;
 	 md_req_op_1_id <= 0;
 	 md_req_in_1_signed_1_id <= 0;
 	 md_req_in_2_signed_1_id <= 0;
@@ -654,7 +654,7 @@ module pipeline
 	 alu_op_2_id <= 0;
 	 rs_ent_2_id <= 0;
 	 dmem_size_2_id <= 0;
-	 dmem_type_2_id <= 0;			  
+	 dmem_type_2_id <= 0;
 	 md_req_op_2_id <= 0;
 	 md_req_in_1_signed_2_id <= 0;
 	 md_req_in_2_signed_2_id <= 0;
@@ -679,7 +679,7 @@ module pipeline
 	 bhr_id <= 0;
 	 isbranch1_id <= 0;
 	 isbranch2_id <= 0;
-	 
+
       end else if (~stall_DP) begin
 	 imm_type_1_id <= imm_type_1;
 	 rs1_1_id <= rs1_1;
@@ -694,7 +694,7 @@ module pipeline
 	 alu_op_1_id <= alu_op_1;
 	 rs_ent_1_id <= inv1_if ? 0 : rs_ent_1;
 	 dmem_size_1_id <= dmem_size_1;
-	 dmem_type_1_id <= dmem_type_1;			  
+	 dmem_type_1_id <= dmem_type_1;
 	 md_req_op_1_id <= md_req_op_1;
 	 md_req_in_1_signed_1_id <= md_req_in_1_signed_1;
 	 md_req_in_2_signed_1_id <= md_req_in_2_signed_1;
@@ -712,12 +712,12 @@ module pipeline
 	 alu_op_2_id <= alu_op_2;
 	 rs_ent_2_id <= (inv2_if | (prcond_if & isbranch1)) ? 0 : rs_ent_2;
 	 dmem_size_2_id <= dmem_size_2;
-	 dmem_type_2_id <= dmem_type_2;			  
+	 dmem_type_2_id <= dmem_type_2;
 	 md_req_op_2_id <= md_req_op_2;
 	 md_req_in_1_signed_2_id <= md_req_in_1_signed_2;
 	 md_req_in_2_signed_2_id <= md_req_in_2_signed_2;
 	 md_req_out_sel_2_id <= md_req_out_sel_2;
-	 
+
 	 rs1_2_eq_dst1_id <= (rs1_2 == rd_1 && wr_reg_1) ? 1'b1 : 1'b0;
   	 rs2_2_eq_dst1_id <= (rs2_2 == rd_1 && wr_reg_1) ? 1'b1 : 1'b0;
 	 sptag1_id <= sptag1;
@@ -742,7 +742,7 @@ module pipeline
 	 bhr_id <= bhr_if;
 	 isbranch1_id <= isbranch1;
 	 isbranch2_id <= isbranch2;
-	 
+
       end
    end
 
@@ -761,14 +761,14 @@ module pipeline
 	 spec2_id <= spec2;
       end
    end
-   
+
    //DP & SW Stage***************************************************
    assign stall_DP = ~allocatable_alu | ~allocatable_ldst |
 		     ~allocatable_mul | ~allocatable_branch | ~alloc_rrf | prsuccess;
 
    assign kill_DP = prmiss;
-   
-   
+
+
    sourceoperand_manager sopm1_1(
 				 .arfdata(adat1_1),
 				 .arf_busy(abusy1_1),
@@ -821,7 +821,7 @@ module pipeline
 				 .rdy(rdy2_2)
 				 );
 
-   
+
    rrf_freelistmanager rrf_fl(
 			      .clk(clk),
 			      .reset(reset),
@@ -880,13 +880,13 @@ module pipeline
 		.prtag(buf_spectag_branch),
 //		.mpft_valid1(mpft_valid1_id), //PRsuccess & stall Bug
 //		.mpft_valid2(mpft_valid2_id)
-		.mpft_valid1(mpft_valid & 
+		.mpft_valid1(mpft_valid &
 			     (isbranch1_id ? ~sptag1_id : ~(`SPECTAG_LEN'b0)) &
 			     (isbranch2_id ? ~sptag2_id : ~(`SPECTAG_LEN'b0))),
-		.mpft_valid2(mpft_valid & 
+		.mpft_valid2(mpft_valid &
 			     (isbranch2_id ? ~sptag2_id : ~(`SPECTAG_LEN'b0)))
 		);
-   
+
    assign	rrftagfix = buf_rrftag_branch + 1;
    rrf rregfile(
 		.clk(clk),
@@ -910,7 +910,7 @@ module pipeline
 		.wrrfaddr1(buf_rrftag_alu1),
 		.wrrfaddr2(buf_rrftag_alu2),
 		.wrrfaddr3(wrrftag_ldst),
-		.wrrfaddr4(buf_rrftag_branch),      
+		.wrrfaddr4(buf_rrftag_branch),
 		.wrrfaddr5(buf_rrftag_mul),
 		.wrrfdata1(result_alu1),
 		.wrrfdata2(result_alu2),
@@ -1056,17 +1056,17 @@ module pipeline
 				 .req_ldstnum(req_ldstnum)
 				 );
 
-   
+
    //Reservation Station(with Allocate unit, Issue unit)
    //lowest bit of allocent is the selector of RS_alu1/2
    assign 		 rsalu1_we1 = ~allocent1_alu[0];
-   assign 		 rsalu1_we2 = req1_alu ? 
+   assign 		 rsalu1_we2 = req1_alu ?
 			 ~allocent2_alu[0] : ~allocent1_alu[0];
    assign 		 rsalu2_we1 = allocent1_alu[0];
-   assign 		 rsalu2_we2 = req1_alu ? 
+   assign 		 rsalu2_we2 = req1_alu ?
 			 allocent2_alu[0] : allocent1_alu[0];
-   
-   assign busyvec_alu = 
+
+   assign busyvec_alu =
 			{
 			 busyvec_alu2[7],busyvec_alu1[7],busyvec_alu2[6],busyvec_alu1[6],
 			 busyvec_alu2[5],busyvec_alu1[5],busyvec_alu2[4],busyvec_alu1[4],
@@ -1074,7 +1074,7 @@ module pipeline
 			 busyvec_alu2[1],busyvec_alu1[1],busyvec_alu2[0],busyvec_alu1[0]
 			 };
 
-   assign ready_alu = 
+   assign ready_alu =
 		      {
 		       ready_alu2[7],ready_alu1[7],ready_alu2[6],ready_alu1[6],
 		       ready_alu2[5],ready_alu1[5],ready_alu2[4],ready_alu1[4],
@@ -1084,7 +1084,7 @@ module pipeline
 
    assign 		   issue_alu1 = ~prmiss & issuevalid_alu1;
    assign 		   issue_alu2 = ~prmiss & issuevalid_alu2;
-   
+
    allocateunit #(2*`ALU_ENT_NUM, `ALU_ENT_SEL+1) alloc_alu(
 							    .busy(busyvec_alu), //RS_BUSY
 							    //      .en1(),
@@ -1118,7 +1118,7 @@ module pipeline
 */
    assign issuevalid_alu1 = ~entval_alu1[`RRF_SEL+1];
    assign issuevalid_alu2 = ~entval_alu2[`RRF_SEL+1];
-   
+
    oldest_finder8 isunt_alu1
      (
       .entvec({`ALU_ENT_SEL'h7, `ALU_ENT_SEL'h6, `ALU_ENT_SEL'h5, `ALU_ENT_SEL'h4,
@@ -1136,8 +1136,8 @@ module pipeline
       .oldent(issueent_alu2),
       .oldval(entval_alu2)
       );
-   
-   
+
+
    rs_alu reserv_alu1(
 		      //System
 		      .clk(clk),
@@ -1150,13 +1150,13 @@ module pipeline
 		      .histvect(histvect1),
 		      .nextrrfcyc(nextrrfcyc),
 		      //WriteSignal
-		      .clearbusy(issue_alu1), //Issue 
+		      .clearbusy(issue_alu1), //Issue
 		      .issueaddr(issueent_alu1), //= raddr, clsbsyadr
 		      .we1(~stall_DP & ~kill_DP & req1_alu & rsalu1_we1), //alloc1
 		      .we2(~stall_DP & ~kill_DP & req2_alu & rsalu1_we2), //alloc2
 		      .waddr1(allocent1_alu[`ALU_ENT_SEL:1]), //allocent1
-		      .waddr2(req1_alu ? 
-			      allocent2_alu[`ALU_ENT_SEL:1] : 
+		      .waddr2(req1_alu ?
+			      allocent2_alu[`ALU_ENT_SEL:1] :
 			      allocent1_alu[`ALU_ENT_SEL:1]), //allocent2
 		      //WriteSignal1
 		      .wpc_1(pc_id),
@@ -1229,13 +1229,13 @@ module pipeline
 		      .histvect(histvect2),
 		      .nextrrfcyc(nextrrfcyc),
 		      //WriteSignal
-		      .clearbusy(issue_alu2), //Issue 
+		      .clearbusy(issue_alu2), //Issue
 		      .issueaddr(issueent_alu2), //= raddr, clsbsyadr
 		      .we1(~stall_DP & ~kill_DP & req1_alu & rsalu2_we1), //alloc1
 		      .we2(~stall_DP & ~kill_DP & req2_alu & rsalu2_we2), //alloc2
 		      .waddr1(allocent1_alu[`ALU_ENT_SEL:1]), //allocent1
-		      .waddr2(req1_alu ? 
-			      allocent2_alu[`ALU_ENT_SEL:1] : 
+		      .waddr2(req1_alu ?
+			      allocent2_alu[`ALU_ENT_SEL:1] :
 			      allocent1_alu[`ALU_ENT_SEL:1]), //allocent2
 		      //WriteSignal1
 		      .wpc_1(pc_id),
@@ -1317,7 +1317,7 @@ module pipeline
       .issueptr(issueent_ldst),
       .issuevalid(issuevalid_ldst)
       );
-   
+
    rs_ldst reserv_ldst(
 		       //System
 		       .clk(clk),
@@ -1329,12 +1329,12 @@ module pipeline
 		       .specfixtag(spectagfix),
 		       .prbusyvec_next(prbusyvec_next_ldst),
 		       //WriteSignal
-		       .clearbusy(issue_ldst), //Issue 
+		       .clearbusy(issue_ldst), //Issue
 		       .issueaddr(issueent_ldst), //= raddr, clsbsyadr
 		       .we1(~stall_DP & ~kill_DP & req1_ldst), //alloc1
 		       .we2(~stall_DP & ~kill_DP & req2_ldst), //alloc2
 		       .waddr1(allocent1_ldst), //allocent1
-		       .waddr2(req1_ldst ? 
+		       .waddr2(req1_ldst ?
 			       allocent2_ldst : allocent1_ldst), //allocent2
 		       //WriteSignal1
 		       .wpc_1(pc_id),
@@ -1389,7 +1389,7 @@ module pipeline
 
    assign allocent2_branch = allocent1_branch + 1;
    assign issue_branch = ~prmiss & issuevalid_branch;
-   
+
    alloc_issue_ino ai_branch(
 			     .clk(clk),
 			     .reset(reset),
@@ -1406,7 +1406,7 @@ module pipeline
 			     .issueptr(issueent_branch),
 			     .issuevalid(issuevalid_branch)
 			     );
-   
+
    rs_branch reserv_branch(
 			   //System
 			   .clk(clk),
@@ -1418,12 +1418,12 @@ module pipeline
 			   .specfixtag(spectagfix),
 			   .prbusyvec_next(prbusyvec_next_branch),
 			   //WriteSignal
-			   .clearbusy(issue_branch), //Issue 
+			   .clearbusy(issue_branch), //Issue
 			   .issueaddr(issueent_branch), //= raddr, clsbsyadr
 			   .we1(~stall_DP & ~kill_DP & req1_branch), //alloc1
 			   .we2(~stall_DP & ~kill_DP & req2_branch), //alloc2
 			   .waddr1(allocent1_branch), //allocent1
-			   .waddr2(req1_branch ? 
+			   .waddr2(req1_branch ?
 				   allocent2_branch : allocent1_branch), //allocent2
 			   //WriteSignal1
 			   .wpc_1(pc_id),
@@ -1507,7 +1507,7 @@ module pipeline
 						   .out(issueent_mul),
 						   .en(issuevalid_mul)
 						   );
-   
+
    rs_mul reserv_mul(
 		     //System
 		     .clk(clk),
@@ -1518,12 +1518,12 @@ module pipeline
 		     .prtag(buf_spectag_branch),
 		     .specfixtag(spectagfix),
 		     //WriteSignal
-		     .clearbusy(issue_mul), //Issue 
+		     .clearbusy(issue_mul), //Issue
 		     .issueaddr(issueent_mul), //= raddr, clsbsyadr
 		     .we1(~stall_DP & ~kill_DP & req1_mul), //alloc1
 		     .we2(~stall_DP & ~kill_DP & req2_mul), //alloc2
 		     .waddr1(allocent1_mul), //allocent1
-		     .waddr2(req1_mul ? 
+		     .waddr2(req1_mul ?
 			     allocent2_mul : allocent1_mul), //allocent2
 		     //WriteSignal1
 		     .wsrc1_1(src1_1),
@@ -1577,7 +1577,7 @@ module pipeline
 		     .exdst5(buf_rrftag_mul),
 		     .kill_spec5(kill_speculative_mul | ~robwe_mul)
 		     );
-   
+
    //EX Stage********************************************************
 
    always @ (posedge clk) begin
@@ -1607,7 +1607,7 @@ module pipeline
 	 buf_specbit_alu1 <= specbit_alu1;
       end
    end
-   
+
    exunit_alu byakko(
 		     .clk(clk),
 		     .reset(reset),
@@ -1657,7 +1657,7 @@ module pipeline
 	 buf_specbit_alu2 <= specbit_alu2;
       end
    end
-   
+
    exunit_alu suzaku(
 		     .clk(clk),
 		     .reset(reset),
@@ -1704,7 +1704,7 @@ module pipeline
 
    assign dmem_addr = (memoccupy_ld) ? ldaddr : retaddr;
 
-/*   
+/*
    dmem datamemory(
 		   .clk(clk),
 		   .addr({2'b0, dmem_addr[`ADDR_LEN-1:2]}),
@@ -1793,7 +1793,7 @@ module pipeline
 	 buf_sel_lohi_mul <= sel_lohi_mul;
       end
    end
-   
+
    exunit_mul genbu (
 		     .clk(clk),
 		     .reset(reset),
@@ -1842,7 +1842,7 @@ module pipeline
 	 buf_opcode_branch <= opcode_branch;
       end
    end
-   
+
    exunit_branch kirin(
 		       .clk(clk),
 		       .reset(reset),
@@ -1868,7 +1868,7 @@ module pipeline
 		       .tagregfix(tagregfix)
 		       );
 
-   
+
    miss_prediction_fix_table mpft(
 				  .clk(clk),
 				  .reset(reset),
@@ -1883,7 +1883,7 @@ module pipeline
 				  .setspec2_tag(sptag2),
 				  .setspec2_en(branchvalid2 & ~stall_ID & ~stall_DP)
 				  );
-   
+
    //COM Stage*******************************************************
    reorderbuf rob(
 		  .clk(clk),
@@ -1934,7 +1934,7 @@ module pipeline
 		  .rrf_freenum(freenum),
 		  .prmiss(prmiss)
 		  );
-   
+
 endmodule // pipeline
 
 `default_nettype wire
