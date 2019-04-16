@@ -70,6 +70,8 @@ module top
    (* keep *)
    wire [31:0] imm;
    (* keep *)
+   wire [31:0] immj;
+   (* keep *)
    wire [31:0] val1;
    (* keep *)
    wire [31:0] val2;
@@ -104,6 +106,7 @@ module top
    assign simm12 = instruction[31:20];
    assign shamt = instruction[24:20];
    assign imm = {{20{simm12[11]}}, simm12[11:0]};
+   assign immj = {{20{simm12[11]}}, simm12[11:1], 1'b0};
    assign shimm = {{27{0}}, shamt[4:0]};
    assign shimm2 = {{27{0}}, val2[4:0]};
    assign val1_mul = {{32{0}}, val1[31:0]};
