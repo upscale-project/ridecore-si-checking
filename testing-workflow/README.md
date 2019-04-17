@@ -25,7 +25,7 @@ to properly remove them in the end.
 
 Example call from the base directory of repository:
 
-`./testing-workflow/run-si-tests.sh ./cosa/single.txt ./testing-workflow/bug-injection-patches/ ./ridecore-original-src/`
+`./testing-workflow/run-si-tests.sh ./cosa/ ./testing-workflow/bug-injection-patches/ ./ridecore-original-src/`
 
 **Important Note:** the script `run-si-tests.sh` should only be run if
 there are no uncommitted changes in the current repository. The
@@ -52,9 +52,9 @@ Bug are injected using the Linux tool `patch`. Changes are reverted
 using `git reset`.
 
 The names of patch files must contain the name of the operator as
-listed in the `../cosa/single.txt` files. The exact naming scheme of
+listed in the `../cosa/single_property_*.txt` files. The exact naming scheme of
 the patch files is `*_OPNAME.patch` where `OPNAME` is the name of the
-operator as listed in file `../cosa/single.txt`.
+operator as listed in the files `../cosa/single_property_*.txt`.
 
 The script `run-si-tests.sh` runs tests for all patch files found in
 directory `./bug-injection-patches`.
