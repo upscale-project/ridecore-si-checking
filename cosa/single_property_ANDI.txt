@@ -13,7 +13,7 @@ prove: False
 
 [Single Instruction for ANDI]
 description: "Check for Single Instruction"
-assumptions: (state_counter = 7_10) -> ((opcode = 19_7) & (funct3 = 7_3)& (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]));
+assumptions: (state_counter = 7_10) -> ( (inst_constraint0.ANDI = 1_1) & (rd != 0_5)&(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy]));
 formula: (state_counter = 22_10)-> ((val1 & imm_copy) = pipe.aregfile.regfile.mem[rd_copy])
 verification: safety
 bmc_length_min: 20

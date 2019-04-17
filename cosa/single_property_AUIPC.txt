@@ -13,7 +13,7 @@ prove: False
 
 [Single Instruction for AUIPC]
 description: "Check for Single Instruction"
-assumptions: (state_counter = 7_10) -> ((opcode = 23_7) & (rd != 0_5) & (next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy])& (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
+assumptions: (state_counter = 7_10) -> ( (inst_constraint0.AUIPC = 1_1) & (rd != 0_5) & (next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy])& (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
 formula: (state_counter = 22_10)-> (imm_copy[0:11]::rs1_copy::funct3_copy::0_12 + pc_copy = pipe.aregfile.regfile.mem[rd_copy])
 verification: safety
 bmc_length_min: 18
