@@ -87,8 +87,13 @@ module inst_constraint(clk,
    assign funct7 = instruction[31:25];
 
    wire         FORMAT_R;
-   assign FORMAT_R = ( (rd < 16) && (rs1 < 16) && (rs2 < 16));
 
+// Do not constrain the registers to be only from the lower half of
+// the register file. This is needed for QED but not for
+// single-instruction checking.
+//   assign FORMAT_R = ( (rd < 16) && (rs1 < 16) && (rs2 < 16));
+   assign FORMAT_R = (1);
+   
    assign ADD = (FORMAT_R && (opcode == 7'b0110011) && (funct7 == 7'b0000000) && (funct3 == 3'b000));
    assign SUB = (FORMAT_R && (opcode == 7'b0110011) && (funct7 == 7'b0100000) && (funct3 == 3'b000));
    assign SLL = (FORMAT_R && (opcode == 7'b0110011) && (funct7 == 7'b0000000) && (funct3 == 3'b001));
@@ -109,8 +114,13 @@ module inst_constraint(clk,
    assign allowed_alu_R = (ADD || SUB || SLL || SLT || SLTU || XOR || SRL || SRA || OR || AND || MUL || MULH || MULHSU || MULHU);
 
    wire         FORMAT_I;
-   assign FORMAT_I = ( (rd < 16) && (rs1 < 16) );
 
+// Do not constrain the registers to be only from the lower half of
+// the register file. This is needed for QED but not for
+// single-instruction checking.
+//   assign FORMAT_I = ( (rd < 16) && (rs1 < 16) );
+   assign FORMAT_I = (1);
+   
    assign ADDI = (FORMAT_I && (opcode == 7'b0010011) && (funct3 == 3'b000));
    assign SLTI = (FORMAT_I && (opcode == 7'b0010011) && (funct3 == 3'b010));
    assign SLTIU = (FORMAT_I && (opcode == 7'b0010011) && (funct3 == 3'b011));
@@ -124,10 +134,17 @@ module inst_constraint(clk,
    wire 	allowed_alu_I;
    assign allowed_alu_I = (ADDI || SLTI || SLTIU || XORI || ORI || ANDI || SLLI || SRLI || SRAI);
 
-   // lw and sw constraints => to allow for finite memory instantiated in dmem by ridecore
-   assign LW = ((rd < 16) && (opcode == 7'b0000011) && (funct3 == 3'b010) && (instruction[31:30] == 2'b00));
-   assign SW = ((rs2 < 16) && (opcode == 7'b0100011) && (funct3 == 3'b010) && (instruction[31:30] == 2'b00));
+// Do not constrain the registers in LW, SW. This is needed for QED but not for
+// single-instruction checking.
+//
+// lw and sw constraints => to allow for finite memory instantiated in dmem by ridecore
+//   assign LW = ((rs1 == 5'b00000) && (rd < 16) && (opcode == 7'b0000011) && (funct3 == 3'b010) && (instruction[31:30] == 2'b00));
+//   assign SW = ((rs1 == 5'b00000) && (rs2 < 16) && (opcode == 7'b0100011) && (funct3 == 3'b010) && (instruction[31:30] == 2'b00));
 
+   assign LW = ( (opcode == 7'b0000011) && (funct3 == 3'b010) );
+   assign SW = ( (opcode == 7'b0100011) && (funct3 == 3'b010) );
+
+   
    wire 	allowed_mem;
    assign allowed_mem = (LW || SW);
 
