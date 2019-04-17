@@ -43,33 +43,41 @@ module pipeline_if
 		     .idata(idata)
 		     );
    */
+   // manually cut and assign invalid 2;
+   assign invalid2 = 0;
+   wire   cut_invalid2;
    select_logic sellog(
 		       .sel(pc[3:2]),
 		       .idata(idata),
 		       .inst1(inst1),
 		       .inst2(inst2),
-		       .invalid(invalid2)
+		       .invalid(cut_invalid2)
 		       );
 
-   btb brtbl(
-	     .clk(clk),
-	     .reset(reset),
-	     .pc(pc),
-	     .hit(hit),
-	     .jmpaddr(pred_pc),
-	     .we(btbpht_we),
-	     .jmpsrc(btbpht_pc),
-	     .jmpdst(btb_jmpdst),
-	     .invalid2(invalid2)
-	     );
+   // btb brtbl(
+	 //     .clk(clk),
+	 //     .reset(reset),
+	 //     .pc(pc),
+	 //     .hit(hit),
+	 //     .jmpaddr(pred_pc),
+	 //     .we(btbpht_we),
+	 //     .jmpsrc(btbpht_pc),
+	 //     .jmpdst(btb_jmpdst),
+	 //     .invalid2(invalid2)
+	 //     );
 
+   // manually cut and assign predict_cond and hit to zero
+   assign predict_cond = 0;
+   assign hit = 0;
+   wire   cut_predict_cond;
+   wire   cut_hit;
    gshare_predictor gsh
      (
       .clk(clk),
       .reset(reset),
       .pc(pc),
-      .hit_bht(hit),
-      .predict_cond(predict_cond),
+      .hit_bht(cut_hit),
+      .predict_cond(cut_predict_cond),
       .we(btbpht_we),
       .wcond(pht_wcond),
       .went(btbpht_pc[2+:`GSH_BHR_LEN] ^ pht_bhr),
