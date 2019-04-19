@@ -34,7 +34,14 @@ INVAR
 
 TRANS
 next(rs1_copy) = ((state_counter = 7_10) ? rs1 : rs1_copy) ;
+next(val1) = ((state_counter = 7_10) ? pipe.aregfile.regfile.mem[rs1] : val1) ;
 next(rs2_copy) = ((state_counter = 7_10) ? rs2 : rs2_copy) ;
+next(val2) = ((state_counter = 7_10) ? pipe.aregfile.regfile.mem[rs2] : val2) ;
+
+next(imm_new) = ((state_counter = 7_10) ? funct7::rd : imm_new);
+next(addr_sw) = ((state_counter = 8_10) ? val1[0:11]+imm_new : addr_sw);
+next(addr) = ((state_counter = 8_10) ? val1+imm_copy : addr);
+
 next(rd_copy) = ((state_counter = 7_10) ? rd : rd_copy) ;
 next(funct7_copy) = ((state_counter = 7_10) ? funct7 : funct7_copy) ;
 next(funct3_copy) = ((state_counter = 7_10) ? funct3 : funct3_copy) ;

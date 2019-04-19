@@ -4,7 +4,7 @@ clock_behaviors: DetClock(clk, 1)
 vcd: True
 
 [DEFAULT]
-bmc_length: 27
+bmc_length: 23
 solver_name: btor
 precondition: reset_done
 no_arrays: False
@@ -13,7 +13,7 @@ prove: False
 
 [Single Instruction for BNE]
 description: "Check for Single Instruction"
-assumptions: (state_counter = 7_10) -> ( (inst_constraint0.BNE = 1_1) & (next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));(state_counter = 19_10) -> ((next(val1) = pipe.aregfile.regfile.mem[rs1_copy])& (next(val2) = pipe.aregfile.regfile.mem[rs2_copy]));
+assumptions: (state_counter = 7_10) -> ( (inst_constraint0.BNE = 1_1) & (next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));
 formula: ((state_counter = 20_10) & (val1 != val2) & (pc_offset != 4_32))-> (pc = pc_copy + funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::rd_copy[0:0]::funct7_copy[0:5]::rd_copy[1:4]::0_1)
 verification: safety
 bmc_length_min: 18
