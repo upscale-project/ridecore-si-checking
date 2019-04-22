@@ -7,7 +7,6 @@ vcd: True
 solver_name: btor
 no_arrays: False
 prove: False
-default_initial_value: 0
 
 [Single Instruction for ADD]
 description: "Check for Single Instruction"
