@@ -1,5 +1,5 @@
 [GENERAL]
-model_file: ridecore.vlist[top],init.ssts,state_copy.ssts,nop_m.ssts
+model_file: ridecore.vlist[top],init.ssts,nop_m.ssts,state_copy.ssts
 abstract_clock: True
 vcd: True
 
@@ -7,14 +7,11 @@ vcd: True
 solver_name: btor
 no_arrays: False
 prove: False
+default_initial_value: 0
 
 [Single Instruction for ADD]
 description: "Check for Single Instruction"
-# assumptions: (state_counter = 0_10) -> (inst_constraint0.ADD = 1_1)
-# temporary for debugging
-assumptions: (state_counter < 1_10) -> ((inst_constraint0.ADD = 1_1) & (val1 = 1_32) & (val2 = 2_32))
-# formula: (state_counter = 7_10) -> (val1 - val2 = pipe.aregfile.regfile.mem[rd_copy])
-formula: state_counter != 2_10
-# formula: opcode = 127_7
+assumptions: (reset_x = 1_1);(state_counter = 0_10) -> (inst_constraint0.NOP = 1_1);(state_counter = 1_10) -> ((inst_constraint0.ADD = 1_1) & (rd != 0_5))
+formula: (state_counter = 7_10) -> (val1 + val2 = pipe.aregfile.regfile.mem[rd_copy])
 verification: safety
 bmc_length: 8
