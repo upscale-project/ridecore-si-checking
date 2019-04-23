@@ -1,19 +1,17 @@
 [GENERAL]
-model_file: ridecore.vlist[top],reset_procedure.ets,init.ssts,state_copy.ssts,nop_m.ssts
-clock_behaviors: DetClock(clk, 1)
+model_file: ridecore.vlist[top],init.ssts,nop_m.ssts,state_copy.ssts
+abstract_clock: True
 vcd: True
 
 [DEFAULT]
-bmc_length: 23
 solver_name: btor
-precondition: reset_done
 no_arrays: False
-default_initial_value: 0
 prove: False
+default_initial_value: 0
 
 [Single Instruction for BGE]
 description: "Check for Single Instruction"
-assumptions: (state_counter = 7_10) -> ((inst_constraint0.BGE = 1_1) & (next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));
-formula: ((state_counter = 20_10) & (val1 s>= val2) & (pc_offset != 4_32))-> (pc = pc_copy + funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::funct7_copy[6:6]::rd_copy[0:0]::funct7_copy[0:5]::rd_copy[1:4]::0_1)
+assumptions: (reset_x = 1_1);(state_counter = 0_10) -> (inst_constraint0.NOP = 1_1);(state_counter = 1_10) -> ((inst_constraint0.BGE = 1_1));
+formula: ((state_counter = 6_10) & (val1 s>= val2) & (pc_offset != 4_32))-> (pc = pc_copy + pc_offset)
 verification: safety
-bmc_length_min: 18
+bmc_length: 8

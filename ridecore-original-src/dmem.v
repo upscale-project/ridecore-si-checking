@@ -10,12 +10,12 @@ module dmem
    output reg [`DATA_LEN-1:0] rdata
    );
 
-   reg [`DATA_LEN-1:0] 	      mem [0:127];
+   reg [`DATA_LEN-1:0] 	      mem [0:2047];
 
    always @ (posedge clk) begin
-      rdata <= mem[addr[6:0]];
+      rdata <= mem[addr[10:0]];
       if (we)
-	mem[addr[6:0]] <= wdata;
+	mem[addr] <= wdata;
    end
 endmodule // dmem
 `default_nettype wire

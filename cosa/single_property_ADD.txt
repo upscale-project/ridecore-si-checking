@@ -4,10 +4,6 @@ abstract_clock: True
 vcd: True
 
 [DEFAULT]
-<<<<<<< HEAD
-bmc_length: 23
-=======
->>>>>>> 062696f358b3c24e7923dc42e34ddd9f8cd8b290
 solver_name: btor
 no_arrays: False
 prove: False
@@ -15,12 +11,7 @@ default_initial_value: 0
 
 [Single Instruction for ADD]
 description: "Check for Single Instruction"
-<<<<<<< HEAD
-assumptions: (state_counter = 7_10) -> ((inst_constraint0.ADD = 1_1) & (rd != 0_5) &(next(instruction)= instruction));(state_counter = 8_10) -> ((next(instruction)= instruction));(state_counter = 9_10) -> ((next(instruction)= instruction));
-formula: (state_counter = 22_10)-> (val1 + val2 = pipe.aregfile.regfile.mem[rd_copy])
-=======
 assumptions: (reset_x = 1_1);(state_counter = 0_10) -> (inst_constraint0.NOP = 1_1);(state_counter = 1_10) -> ((inst_constraint0.ADD = 1_1) & (rd != 0_5))
 formula: (state_counter = 7_10) -> (val1 + val2 = pipe.aregfile.regfile.mem[rd_copy])
->>>>>>> 062696f358b3c24e7923dc42e34ddd9f8cd8b290
 verification: safety
 bmc_length: 8

@@ -4,9 +4,7 @@ OUTPUT
 
 STATE
 
-
 INIT
-
 
 INVAR
 (state_counter >= 2_10) -> (inst_constraint0.NOP = 1_1) ;
