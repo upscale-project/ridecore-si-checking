@@ -1,0 +1,19 @@
+*** ridecore-original-src/decoder.v	2019-04-23 19:47:08.000000000 -0700
+--- decoder.v	2019-04-29 10:40:53.000000000 -0700
+***************
+*** 69,75 ****
+          end
+          `RV32_STORE : begin
+             uses_rs2 = 1'b1;
+!            imm_type = `IMM_S;
+  //           dmem_use = 1'b1;
+   //          dmem_write = 1'b1;
+  	   rs_ent = `RS_ENT_LDST;
+--- 69,75 ----
+          end
+          `RV32_STORE : begin
+             uses_rs2 = 1'b1;
+!            imm_type = `IMM_I;
+  //           dmem_use = 1'b1;
+   //          dmem_write = 1'b1;
+  	   rs_ent = `RS_ENT_LDST;

@@ -93,7 +93,7 @@ module inst_constraint(clk,
 // single-instruction checking.
 //   assign FORMAT_R = ( (rd < 16) && (rs1 < 16) && (rs2 < 16));
    assign FORMAT_R = (1);
-   
+
    assign ADD = (FORMAT_R && (opcode == 7'b0110011) && (funct7 == 7'b0000000) && (funct3 == 3'b000));
    assign SUB = (FORMAT_R && (opcode == 7'b0110011) && (funct7 == 7'b0100000) && (funct3 == 3'b000));
    assign SLL = (FORMAT_R && (opcode == 7'b0110011) && (funct7 == 7'b0000000) && (funct3 == 3'b001));
@@ -120,7 +120,7 @@ module inst_constraint(clk,
 // single-instruction checking.
 //   assign FORMAT_I = ( (rd < 16) && (rs1 < 16) );
    assign FORMAT_I = (1);
-   
+
    assign ADDI = (FORMAT_I && (opcode == 7'b0010011) && (funct3 == 3'b000));
    assign SLTI = (FORMAT_I && (opcode == 7'b0010011) && (funct3 == 3'b010));
    assign SLTIU = (FORMAT_I && (opcode == 7'b0010011) && (funct3 == 3'b011));
@@ -144,7 +144,7 @@ module inst_constraint(clk,
    assign LW = ( (opcode == 7'b0000011) && (funct3 == 3'b010) );
    assign SW = ( (opcode == 7'b0100011) && (funct3 == 3'b010) );
 
-   
+
    wire 	allowed_mem;
    assign allowed_mem = (LW || SW);
 
@@ -195,8 +195,8 @@ module inst_constraint(clk,
    wire 	NOP;
    assign NOP = (opcode == 7'b1111111);
 
-   always @(posedge clk) begin
-      assume property (allowed_alu_I | allowed_alu_R | allowed_mem | allowed_B | allowed_J | allowed_U | NOP);
-   end
+   //always @(posedge clk) begin
+      //assume property (allowed_alu_I | allowed_alu_R | allowed_mem | allowed_B | allowed_J | allowed_U | NOP);
+   //end
 
 endmodule // inst_constraint
