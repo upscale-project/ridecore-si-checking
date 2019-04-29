@@ -195,8 +195,8 @@ module inst_constraint(clk,
    wire 	NOP;
    assign NOP = (opcode == 7'b1111111);
 
-   //always @(posedge clk) begin
-      //assume property (allowed_alu_I | allowed_alu_R | allowed_mem | allowed_B | allowed_J | allowed_U | NOP);
-   //end
+   always @(posedge clk) begin
+      assume property (allowed_alu_I | allowed_alu_R | allowed_mem | allowed_B | allowed_J | allowed_U | NOP);
+   end
 
 endmodule // inst_constraint
