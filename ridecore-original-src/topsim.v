@@ -104,8 +104,8 @@ module top
    assign shimm = {{27{opcode[7]}}, shamt[4:0]};
    assign shimm2 = {{27{opcode[7]}}, val2[4:0]};
 
-   //inst_constraint inst_constraint0(.clk(clk),
-   //                                  .instruction(instruction));
+   inst_constraint inst_constraint0(.clk(clk),
+                                     .instruction(instruction));
    // EDIT END
 /*
    assign utx_we = (dmem_we_core && (dmem_addr_core == 32'h0)) ? 1'b1 : 1'b0;
