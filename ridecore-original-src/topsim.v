@@ -83,7 +83,12 @@ module top
    wire [31:0] shimm;
    (* keep *)
    wire [31:0] shimm2;
-
+   (* keep *)
+   wire [63:0] val1_mul;
+   (* keep *)
+   wire [63:0] val2_mul;
+   (* keep *)
+   wire [63:0] val_mul;
 
 
    assign opcode = instruction[6:0];
@@ -96,11 +101,11 @@ module top
    assign shamt = instruction[24:20];
    assign imm = {{20{simm12[11]}}, simm12[11:0]};
    assign immj = {{20{simm12[11]}}, simm12[11:1], 1'b0};
-   assign shimm = {{27{0}}, shamt[4:0]};
-   assign shimm2 = {{27{0}}, val2[4:0]};
+   assign shimm = {{27{opcode[7]}}, shamt[4:0]};
+   assign shimm2 = {{27{opcode[7]}}, val2[4:0]};
 
-   inst_constraint inst_constraint0(.clk(clk),
-                                    .instruction(instruction));
+   //inst_constraint inst_constraint0(.clk(clk),
+   //                                  .instruction(instruction));
    // EDIT END
 /*
    assign utx_we = (dmem_we_core && (dmem_addr_core == 32'h0)) ? 1'b1 : 1'b0;

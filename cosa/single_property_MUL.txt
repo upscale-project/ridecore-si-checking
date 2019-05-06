@@ -1,0 +1,17 @@
+[GENERAL]
+model_file: ridecore.vlist[top],init.ssts,nop_m.ssts,state_copy.ssts
+abstract_clock: True
+vcd: True
+
+[DEFAULT]
+solver_name: btor
+no_arrays: False
+prove: False
+default_initial_value: 0
+
+[Single Instruction for MUL]
+description: "Check for Single Instruction"
+assumptions: (reset_x = 1_1);(state_counter = 0_10) -> (inst_constraint0.NOP = 1_1);(state_counter = 1_10) -> ((inst_constraint0.MUL = 1_1) & (rd != 0_5))
+formula: (state_counter = 8_10) -> (val_mul[0:31] = pipe.aregfile.regfile.mem[rd_copy])
+verification: safety
+bmc_length: 10

@@ -7,7 +7,7 @@
 `include "alu_ops.vh"
 `include "arf.v"
 `include "ram_sync.v"
-`include "ram_sync_nolatch.v" 
+`include "ram_sync_nolatch.v"
 `include "brimm_gen.v"
 `include "constants.vh"
 `include "decoder.v"
@@ -41,27 +41,30 @@
 `include "dualport_ram.v"
 `include "alu.v"
 `include "multiplier.v"
-`include "../inst_constraint.sv"
+`include "inst_constraint.sv"
 
 
-module example_3_1_tb;
+module top_jump;
 
-   wire [31:0] inst = 32'b0000000001000000000000001101111;
+   reg [31:0] inst = 32'b0000000001000000000000111101111;
    reg clk, reset;
-   top U_TOP(clk,reset_x,inst);
+   top U_TOP(clk,reset,inst);
 
    initial begin
       clk = 0;
       reset = 0;
       $dumpfile("top_jump.vcd");
       $dumpvars(0, top_jump);
-
-      $finish;
-
-   end
-   
-   always begin
-   #5 clk = ~clk;
    end
 
+   always
+    #5 clk = !clk;
+
+   initial begin
+    reset = 1; #5
+    reset = 0; inst = 32'b0000001101000000000000111101111; #25
+    inst = 32'b0000000001000000000000100010011; #25
+    inst = 32'b0000000001000000000000110010011; #90
+    $finish;
+    end
 endmodule

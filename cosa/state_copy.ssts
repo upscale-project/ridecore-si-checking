@@ -43,6 +43,10 @@ INVAR
 TRANS
 next(val1) = ((state_counter = 1_10) ? pipe.aregfile.regfile.mem[rs1] : val1) ;
 next(val2) = ((state_counter = 1_10) ? pipe.aregfile.regfile.mem[rs2] : val2) ;
+next(val1_mul) = ((state_counter = 1_10) ? pipe.aregfile.regfile.mem[rs1] ZEXT 32: val1_mul) ;
+next(val2_mul) = ((state_counter = 1_10) ? pipe.aregfile.regfile.mem[rs2] ZEXT 32: val2_mul) ;
+next(val_mul) = ((state_counter = 2_10) ? val1_mul * val2_mul : val_mul) ;
+
 next(rs2_copy) = ((state_counter = 1_10) ? rs2 : rs2_copy) ;
 next(imm_new) = ((state_counter = 1_10) ? funct7::rd SEXT 20: imm_new) ;
 next(addr_sw) = ((state_counter = 2_10) ? val1+imm_new : addr_sw) ;

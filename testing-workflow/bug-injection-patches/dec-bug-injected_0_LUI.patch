@@ -1,0 +1,19 @@
+*** ./ridecore-original-src/decoder.v	2019-04-29 14:59:52.000000000 -0700
+--- decoder.v	2019-05-06 07:30:14.000000000 -0700
+***************
+*** 178,184 ****
+          `RV32_LUI : begin
+             uses_rs1 = 1'b0;
+             src_a_sel = `SRC_A_ZERO;
+!            imm_type = `IMM_U;
+             wr_reg = 1'b1;
+          end
+          default : begin
+--- 178,184 ----
+          `RV32_LUI : begin
+             uses_rs1 = 1'b0;
+             src_a_sel = `SRC_A_ZERO;
+!            imm_type = `IMM_J;
+             wr_reg = 1'b1;
+          end
+          default : begin
