@@ -2,12 +2,12 @@
 model_files: ridecore.vlist[top],init.ssts,nop_m.ssts,state_copy.ssts
 abstract_clock: True
 vcd: True
+no_arrays: False
+default_initial_value: 0
 
 [DEFAULT]
 solver_name: btor
-no_arrays: False
 prove: False
-default_initial_value: 0
 
 [Single Instruction For ORI]
 description: "Check for Single Instruction"
