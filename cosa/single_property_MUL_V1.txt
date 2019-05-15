@@ -1,5 +1,5 @@
 [GENERAL]
-model_file: ridecore.vlist[top],init.ssts,nop_m.ssts,state_copy.ssts
+model_files: ridecore.vlist[top],init.ssts,nop_m.ssts,state_copy.ssts
 abstract_clock: True
 vcd: True
 
@@ -12,6 +12,6 @@ default_initial_value: 0
 [Single Instruction for MUL_V1]
 description: "Check for Single Instruction"
 assumptions: (reset_x = 1_1);(state_counter = 0_10) -> (inst_constraint0.NOP = 1_1);(state_counter = 1_10) -> ( (inst_constraint0.MUL = 1_1) & (rd != 0_5) & (pipe.aregfile.regfile.mem[rs2] = 1_32));
-formula: (state_counter = 7_10)-> (pipe.aregfile.regfile.mem[rd_copy] = val1)
+properties: (state_counter = 7_10)-> (pipe.aregfile.regfile.mem[rd_copy] = val1)
 verification: safety
 bmc_length: 8
