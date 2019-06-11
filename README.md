@@ -29,7 +29,7 @@ Related demo showing how SQED is applied to RIDECORE:
 * `./ridecore-original-src/top.v`: top module for driving the microprocessor \
 We added some registers to capture different parts from the instruction and `(* keep *)` for wires we don’t want yosys to clean up in the verification. This module also instantiates `inst_constraint` and constrains the input instruction to be a valid RISC-V instruction. 
 
-* In pipeline_if.v: Disable branch prediction (negative clock behavior) to speed up the verification
+* `./ridecore-original-src/pipeline_if.v`: Disable branch prediction (negative clock behavior) to speed up the verification
 
 # Setup:
 CoSA installation 
