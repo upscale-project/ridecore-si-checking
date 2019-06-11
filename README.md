@@ -26,8 +26,8 @@ Related demo showing how SQED is applied to RIDECORE:
 
 # RTL modification:
 
-* `./ridecore-original-src/top.v`: top module for driving the microprocessor
- We added some registers to capture different parts from the instruction and `(* keep *)` for wires we don’t want yosys to clean up in the verification. This module also instantiates `inst_constraint` and constrains the input instruction to be a valid RISC-V instruction. 
+* `./ridecore-original-src/top.v`: top module for driving the microprocessor \
+We added some registers to capture different parts from the instruction and `(* keep *)` for wires we don’t want yosys to clean up in the verification. This module also instantiates `inst_constraint` and constrains the input instruction to be a valid RISC-V instruction. 
 
 * In pipeline_if.v: Disable branch prediction (negative clock behavior) to speed up the verification
 
@@ -48,12 +48,16 @@ This module includes the following instruction check:
 
 Integer Register-Immediate Instructions:
 `ADDI ANDI ORI SLLI SLTIU SLTI SRAI SRLI XORI`
+
 Integer Register-Register Instructions:
 `ADD AND OR SLL SLT SRA SRL SUB XOR`
+
 Load and Store instructions: 
 `SW and LW`
+
 Control Transfer Instructions:
 `BEQ BGE BGEU BLT BLTU BNE JAL JALR LUI AUIPC`
+
 Test the value in x0: To test that the value in register 0 is always connected to 0. 
 `LOADx0`
 
