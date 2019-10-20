@@ -19,6 +19,11 @@ pc_copy : BV(32) ;
 pc_offset : BV(32) ;
 pc_offset_j: BV(32);
 load_imm_copy : BV(32);
+val1: BV(32);
+val2: BV(32);
+val1_mul: BV(64);
+val2_mul: BV(64);
+val_mul: BV(64);
 
 INIT
 rs1_copy = 0_5 ;
@@ -37,6 +42,11 @@ load_imm_copy = 0_32;
 addr = 0_32;
 addr_sw = 0_32;
 imm_new = 0_32;
+val1 = 0_32;
+val2 = 0_32;
+val_mul = 0_64;
+val1_mul = 0_64;
+val2_mul = 0_64;
 
 INVAR
 
@@ -46,19 +56,18 @@ next(val2) = ((state_counter = 1_10) ? pipe.aregfile.regfile.mem[rs2] : val2) ;
 next(val1_mul) = ((state_counter = 1_10) ? pipe.aregfile.regfile.mem[rs1] ZEXT 32: val1_mul) ;
 next(val2_mul) = ((state_counter = 1_10) ? pipe.aregfile.regfile.mem[rs2] ZEXT 32: val2_mul) ;
 next(val_mul) = ((state_counter = 2_10) ? val1_mul * val2_mul : val_mul) ;
-
 next(rs2_copy) = ((state_counter = 1_10) ? rs2 : rs2_copy) ;
 next(imm_new) = ((state_counter = 1_10) ? funct7::rd SEXT 20: imm_new) ;
 next(addr_sw) = ((state_counter = 2_10) ? val1+imm_new : addr_sw) ;
 next(addr) = ((state_counter = 2_10) ? val1+imm_copy : addr) ;
-
 next(rd_copy) = ((state_counter = 1_10) ? rd : rd_copy) ;
-next(imm_copy) = ((state_counter = 1_10) ? imm : imm_copy) ;
-next(immj_copy) = ((state_counter = 1_10) ? immj : immj_copy) ;
-next(shimm_copy) = ((state_counter = 1_10) ? shimm : shimm_copy) ;
-next(shimm2_copy) = ((state_counter = 2_10) ? shimm2 : shimm2_copy) ;
-next(load_imm_copy) = ((state_counter = 1_10) ? imm[0:11]::rs1::funct3::0_12 : load_imm_copy);
+next(imm_copy) = ((state_counter = 1_10) ? simm12 SEXT 20 : imm_copy) ;
+next(shimm_copy) = ((state_counter = 1_10) ? shamt ZEXT 27 : shimm_copy) ;
+next(shimm2_copy) = ((state_counter = 2_10) ? val2[0:4] ZEXT 27: shimm2_copy) ;
 
+
+next(load_imm_copy) = ((state_counter = 1_10) ? simm12::rs1::funct3::0_12 : load_imm_copy);
+next(immj_copy) = ((state_counter = 1_10) ? (simm12[11:1]  SEXT 20 :: 0_1) : immj_copy) ;
 next(pc_copy) = ((state_counter = 1_10) ? pc : pc_copy) ;
 next(pc_offset) = ((state_counter = 1_10) ? funct7[6:6]::rd[0:0]::funct7[0:5]::rd[1:4]::0_1 SEXT 19: pc_offset);
-next(pc_offset_j) = ((state_counter = 1_10) ? imm[11:11]::rs1::funct3::imm[0:0]::imm[1:10]::0_1 SEXT 11 : pc_offset_j);
+next(pc_offset_j) = ((state_counter = 1_10) ? simm12[11:11]::rs1::funct3::simm12[0:0]::simm12[1:10]::0_1 SEXT 11 : pc_offset_j);

@@ -68,41 +68,20 @@ module top
    (* keep *)
    wire [11:0] simm12;
    (* keep *)
-   wire [31:0] imm;
-   (* keep *)
-   wire [31:0] immj;
-   (* keep *)
-   wire [31:0] val1;
-   (* keep *)
-   wire [31:0] val2;
-   (* keep *)
    wire [6:0] simm7; // higher order bits (including sign bits) of imm operand for S type instruction
    (* keep *)
    wire [4:0] shamt; // shift amount for immediate shift operations
-   (* keep *)
-   wire [31:0] shimm;
-   (* keep *)
-   wire [31:0] shimm2;
-   (* keep *)
-   wire [63:0] val1_mul;
-   (* keep *)
-   wire [63:0] val2_mul;
-   (* keep *)
-   wire [63:0] val_mul;
-
 
    assign opcode = instruction[6:0];
    assign rd = instruction[11:7];
    assign rs1 = instruction[19:15];
    assign rs2 = instruction[24:20];
-   assign funct7 = instruction[31:25];
-   assign funct3 = instruction[14:12];
    assign simm12 = instruction[31:20];
+   assign simm7 = instruction[31:25];
+   assign imm5 = instruction[11:7];
    assign shamt = instruction[24:20];
-   assign imm = {{20{simm12[11]}}, simm12[11:0]};
-   assign immj = {{20{simm12[11]}}, simm12[11:1], 1'b0};
-   assign shimm = {{27{0}}, shamt[4:0]};
-   assign shimm2 = {{27{0}}, val2[4:0]};
+   assign funct3 = instruction[14:12];
+   assign funct7 = instruction[31:25];
 
    inst_constraint inst_constraint0(.clk(clk),
                                      .instruction(instruction));
