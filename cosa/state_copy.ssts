@@ -67,7 +67,7 @@ next(shimm2_copy) = ((state_counter = 2_10) ? val2[0:4] ZEXT 27: shimm2_copy) ;
 
 
 next(load_imm_copy) = ((state_counter = 1_10) ? simm12::rs1::funct3::0_12 : load_imm_copy);
-next(immj_copy) = ((state_counter = 1_10) ? (simm12[11:1]  SEXT 20 :: 0_1) : immj_copy) ;
+next(immj_copy) = ((state_counter = 1_10) ? (simm12[1:11]  SEXT 20 :: 0_1) : immj_copy) ;
 next(pc_copy) = ((state_counter = 1_10) ? pc : pc_copy) ;
 next(pc_offset) = ((state_counter = 1_10) ? funct7[6:6]::rd[0:0]::funct7[0:5]::rd[1:4]::0_1 SEXT 19: pc_offset);
 next(pc_offset_j) = ((state_counter = 1_10) ? simm12[11:11]::rs1::funct3::simm12[0:0]::simm12[1:10]::0_1 SEXT 11 : pc_offset_j);
