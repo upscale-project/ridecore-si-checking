@@ -1,0 +1,12 @@
+INPUT
+
+OUTPUT
+
+STATE
+
+INIT
+
+INVAR
+(state_counter >= 2_10 & state_counter <= 9_10) -> (inst_constraint0.NOP = 1_1) ;
+(state_counter >= 11_10) -> (inst_constraint0.NOP = 1_1) ;
+TRANS
