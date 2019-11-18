@@ -24,6 +24,9 @@ val2: BV(32);
 val1_mul: BV(64);
 val2_mul: BV(64);
 val_mul: BV(64);
+val_mem: BV(32);
+imm_sw: BV(12);
+rdmem_copy: BV(5);
 
 INIT
 rs1_copy = 0_5 ;
@@ -47,6 +50,9 @@ val2 = 0_32;
 val_mul = 0_64;
 val1_mul = 0_64;
 val2_mul = 0_64;
+val_mem = 0_32;
+imm_sw = 0_12;
+rdmem_copy = 0_5;
 
 INVAR
 
@@ -56,7 +62,7 @@ next(val2) = ((state_counter = 1_10) ? pipe.aregfile.regfile.mem[rs2] : val2) ;
 next(val1_mul) = ((state_counter = 1_10) ? pipe.aregfile.regfile.mem[rs1] ZEXT 32: val1_mul) ;
 next(val2_mul) = ((state_counter = 1_10) ? pipe.aregfile.regfile.mem[rs2] ZEXT 32: val2_mul) ;
 next(val_mul) = ((state_counter = 2_10) ? val1_mul * val2_mul : val_mul) ;
-next(rs2_copy) = ((state_counter = 1_10) ? rs2 : rs2_copy) ;
+
 next(imm_new) = ((state_counter = 1_10) ? funct7::rd SEXT 20: imm_new) ;
 next(addr_sw) = ((state_counter = 2_10) ? val1+imm_new : addr_sw) ;
 next(addr) = ((state_counter = 2_10) ? val1+imm_copy : addr) ;
@@ -65,6 +71,10 @@ next(imm_copy) = ((state_counter = 1_10) ? simm12 SEXT 20 : imm_copy) ;
 next(shimm_copy) = ((state_counter = 1_10) ? shamt ZEXT 27 : shimm_copy) ;
 next(shimm2_copy) = ((state_counter = 2_10) ? val2[0:4] ZEXT 27: shimm2_copy) ;
 
+next(rs1_copy) = ((state_counter = 1_10) ? rs1 : rs1_copy) ;
+next(imm_sw) = ((state_counter = 1_10) ? funct7::rd  : imm_sw) ;
+next(rdmem_copy) = ((state_counter = 10_10) ? rd : rdmem_copy) ;
+next(val_mem) = ((state_counter = 1_10) ? pipe.aregfile.regfile.mem[rs2] : val_mem) ;
 
 next(load_imm_copy) = ((state_counter = 1_10) ? simm12::rs1::funct3::0_12 : load_imm_copy);
 next(immj_copy) = ((state_counter = 1_10) ? (simm12[1:11]  SEXT 20 :: 0_1) : immj_copy) ;
