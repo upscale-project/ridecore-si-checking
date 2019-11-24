@@ -11,7 +11,7 @@ prove: False
 
 [Single Instruction for MEM]
 description: "Check for Single Instruction"
-assumptions: (reset_x = 1_1);(state_counter = 0_10) -> (inst_constraint0.NOP = 1_1);(state_counter = 1_10) -> ((inst_constraint0.SW = 1_1));(state_counter = 10_10) -> ((inst_constraint0.LW = 1_1) &(simm12 = imm_sw) &(rs1 = rs1_copy) &(rd!= 0_5));
-properties: (state_counter = 17_10)-> (val_mem = pipe.aregfile.regfile.mem[rdmem_copy])
+assumptions: (reset_x = 1_1);(state_counter = 0_10) -> (inst_constraint0.NOP = 1_1);(state_counter = 1_10) -> ((inst_constraint0.SW = 1_1));(state_counter = 10_10) -> ((inst_constraint0.LW = 1_1) &(simm12 = funct7_copy::rd_copy) &(rs1 = rs1_copy) &(rd!= 0_5));
+properties: (state_counter = 17_10)-> (rs2_reg_value = rd_mem_reg_value)
 verification: safety
 bmc_length: 20

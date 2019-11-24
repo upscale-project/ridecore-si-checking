@@ -54,23 +54,26 @@ module top
    // EDIT: Use the inst_constraint module to constrain instruction to be
    //       a valid instruction from the ISA
    (* keep *)
-   wire [6:0] opcode;
-   (* keep *)
    wire [4:0] rd;
    (* keep *)
-   wire [4:0] rs1;
+   wire [4:0]  rs1;
    (* keep *)
-   wire [4:0] rs2;
+   wire [4:0]  rs2;
    (* keep *)
-   wire [6:0] funct7;
+   wire [6:0]  opcode;
+   (* keep *)
+   wire [11:0] simm12;  // signed imm for I type or instructions using rd, rs1 only like LW
    (* keep *)
    wire [2:0] funct3;
    (* keep *)
-   wire [11:0] simm12;
+   wire [6:0] funct7;
+   (* keep *)
+   wire [4:0] imm5;  // lower order imm bits for S type instruction
    (* keep *)
    wire [6:0] simm7; // higher order bits (including sign bits) of imm operand for S type instruction
    (* keep *)
    wire [4:0] shamt; // shift amount for immediate shift operations
+
 
    assign opcode = instruction[6:0];
    assign rd = instruction[11:7];

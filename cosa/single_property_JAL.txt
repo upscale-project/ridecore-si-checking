@@ -19,6 +19,6 @@ bmc_length: 8
 [Single Instruction for JALRD]
 description: "Check for Single Instruction"
 assumptions: (reset_x = 1_1);(state_counter = 0_10) -> (inst_constraint0.NOP = 1_1);(state_counter = 1_10) -> ((inst_constraint0.JAL = 1_1) & (rd != 0_5));
-properties: ((state_counter = 7_10))-> ((pipe.aregfile.regfile.mem[rd_copy] = pc_copy + 4_32))
+properties: ((state_counter = 7_10))-> ((rd_reg_value = pc_copy + 4_32))
 verification: safety
 bmc_length: 8

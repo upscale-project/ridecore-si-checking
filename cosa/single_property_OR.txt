@@ -12,6 +12,6 @@ prove: False
 [Single Instruction For OR]
 description: "Check for Single Instruction"
 assumptions: (reset_x = 1_1);(state_counter = 0_10) -> (inst_constraint0.NOP = 1_1);(state_counter = 1_10) -> ((inst_constraint0.OR = 1_1) & (rd != 0_5));
-properties: (state_counter = 7_10)-> ((val1 | val2) = pipe.aregfile.regfile.mem[rd_copy])
+properties: (state_counter = 7_10)-> ((rs1_reg_value | rs2_reg_value) = rd_reg_value)
 verification: safety
 bmc_length: 8

@@ -11,7 +11,7 @@ prove: False
 
 [Single Instruction for MUL_V2]
 description: "Check for Single Instruction"
-assumptions: (reset_x = 1_1);(state_counter = 0_10) -> (inst_constraint0.NOP = 1_1);(state_counter = 1_10) -> ( (inst_constraint0.MUL = 1_1) & (rd != 0_5)& (pipe.aregfile.regfile.mem[rs1] = 1_32));
-properties: (state_counter = 7_10)-> (pipe.aregfile.regfile.mem[rd_copy] = val2)
+assumptions: (reset_x = 1_1);(state_counter = 0_10) -> (inst_constraint0.NOP = 1_1);(state_counter = 1_10) -> ( (inst_constraint0.MUL = 1_1) & (rd != 0_5)& (rs1_reg_value = 1_32));
+properties: (state_counter = 7_10)-> (rd_reg_value = rs2_reg_value)
 verification: safety
 bmc_length: 8

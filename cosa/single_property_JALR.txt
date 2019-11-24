@@ -12,13 +12,13 @@ prove: False
 [Single Instruction for JALR]
 description: "Check for Single Instruction"
 assumptions: (reset_x = 1_1);(state_counter = 0_10) -> (inst_constraint0.NOP = 1_1);(state_counter = 1_10) -> ( (inst_constraint0.JALR = 1_1) & (rd != 0_5));
-properties: ((state_counter = 6_10) & (val1+immj_copy != 4_32))-> (pc = (val1+immj_copy))
+properties: ((state_counter = 6_10) & (rs1_reg_value+jump_immediate != 4_32))-> (pc = (rs1_reg_value+jump_immediate))
 verification: safety
 bmc_length: 8
 
 [Single Instruction for JALRRD]
 description: "Check for Single Instruction"
 assumptions: (reset_x = 1_1);(state_counter = 0_10) -> (inst_constraint0.NOP = 1_1);(state_counter = 1_10) -> ((inst_constraint0.JALR = 1_1) & (rd != 0_5));
-properties: ((state_counter = 7_10))-> ((pipe.aregfile.regfile.mem[rd_copy] = pc_copy + 4_32))
+properties: ((state_counter = 7_10))-> ((rd_reg_value = pc_copy + 4_32))
 verification: safety
 bmc_length: 8
