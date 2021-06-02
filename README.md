@@ -6,7 +6,7 @@ the latest RIDECORE implementation, a RISC-V processor core, using our model che
 Single instruction checking is complementary to symbolic quick error detection (SQED).
 
 Related demo showing how SQED is applied to RIDECORE:
-[https://github.com/makaimann/ride-core-demo](https://github.com/makaimann/ride-core-demo)
+[https://github.com/upscale-project/generic-sqed-demo](https://github.com/upscale-project/generic-sqed-demo)
 
 # List of CoSA files for the module:
 
